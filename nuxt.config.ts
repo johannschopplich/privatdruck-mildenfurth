@@ -1,24 +1,27 @@
 import tailwindcss from '@tailwindcss/vite'
 
 export default defineNuxtConfig({
-  modules: [
-    '@nuxt/content',
-  ],
+  modules: ['@nuxt/content'],
 
-  css: [
-    '~/assets/css/main.css',
-  ],
+  compatibilityDate: '2026-01-01',
 
-  devtools: { enabled: true },
-  compatibilityDate: '2024-04-03',
+  css: ['~/assets/css/main.css'],
+
   nitro: {
     prerender: {
       routes: ['/2025', '/2026'],
       crawlLinks: false,
-      failOnError: false,
     },
   },
+
   vite: {
     plugins: [tailwindcss()],
+  },
+
+  hooks: {
+    'prepare:types': ({ nodeTsConfig }) => {
+      nodeTsConfig.include ||= []
+      nodeTsConfig.include.push('../scripts/**/*')
+    },
   },
 })

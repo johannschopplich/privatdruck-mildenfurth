@@ -21,7 +21,9 @@ const authorParts = computed(() => {
 <template>
   <section class="page-title">
     <h1 class="title-author">
-      {{ authorParts.firstNames }}<br v-if="authorParts.lastName">{{ authorParts.lastName }}
+      {{ authorParts.firstNames }}<br v-if="authorParts.lastName" />{{
+        authorParts.lastName
+      }}
     </h1>
     <p class="title-work">
       {{ title }}

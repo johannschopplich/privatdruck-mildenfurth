@@ -5,6 +5,7 @@
   font-style: normal;
   font-display: block;
 }
+
 @font-face {
   font-family: 'Sirba';
   src: url('~/assets/fonts/Sirba-Italic.otf') format('opentype');
@@ -12,6 +13,7 @@
   font-style: italic;
   font-display: block;
 }
+
 @font-face {
   font-family: 'Sirba';
   src: url('~/assets/fonts/Sirba-Bold.otf') format('opentype');
@@ -19,6 +21,7 @@
   font-style: normal;
   font-display: block;
 }
+
 @font-face {
   font-family: 'Sirba';
   src: url('~/assets/fonts/Sirba-BoldItalic.otf') format('opentype');
@@ -34,6 +37,7 @@
   font-style: normal;
   font-display: block;
 }
+
 @font-face {
   font-family: 'Trola';
   src: url('~/assets/fonts/Trola-Regular.otf') format('opentype');
@@ -41,6 +45,7 @@
   font-style: normal;
   font-display: block;
 }
+
 @font-face {
   font-family: 'Trola';
   src: url('~/assets/fonts/Trola-Semibold.otf') format('opentype');
@@ -48,6 +53,7 @@
   font-style: normal;
   font-display: block;
 }
+
 @font-face {
   font-family: 'Trola';
   src: url('~/assets/fonts/Trola-Bold.otf') format('opentype');

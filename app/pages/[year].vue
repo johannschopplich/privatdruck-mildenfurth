@@ -10,10 +10,17 @@ const { data: book } = await useAsyncData(`book-${year}`, () =>
 )
 
 if (!book.value) {
-  throw createError({ statusCode: 404, statusMessage: `Book ${year} not found`, fatal: true })
+  throw createError({
+    statusCode: 404,
+    statusMessage: `Book ${year} not found`,
+    fatal: true,
+  })
 }
 
-const publicationsForBook = previousPublications.filter(p => p.year < currentYear)
+const roman = toRoman(book.value.year)
+const earlierPublications = previousPublications.filter(
+  (publication) => publication.year < currentYear,
+)
 
 useHead({
   title: `${book.value.author} – ${book.value.title}`,
@@ -22,22 +29,22 @@ useHead({
 </script>
 
 <template>
-  <article class="book">
-    <PageCover :author="book!.author" :title="book!.title" />
+  <article v-if="book" class="book">
+    <PageCover :author="book.author" :title="book.title" />
     <PageBlank />
-    <PageTitle :author="book!.author" :title="book!.title" :roman="book!.roman" />
+    <PageTitle :author="book.author" :title="book.title" :roman="roman" />
     <PageBlank />
-    <PageBody :epigraph="book!.epigraph">
-      <ContentRenderer :value="book!" />
+    <PageBody :epigraph="book.epigraph">
+      <ContentRenderer :value="book" />
     </PageBody>
-    <PageList :publications="publicationsForBook" />
+    <PageList :publications="earlierPublications" />
     <PageColophon
-      :ordinal="book!.sequenceOrdinal"
-      :editor="book!.editor"
-      :copies="book!.copies"
-      :reading-date="book!.readingDate"
-      :location="book!.location"
-      :author="book!.author"
+      :ordinal="book.sequenceOrdinal"
+      :editor="book.editor"
+      :copies="book.copies"
+      :reading-date="book.readingDate"
+      :location="book.location"
+      :author="book.author"
     />
   </article>
 </template>
