@@ -381,12 +381,13 @@ body {
   width: 12mm;
   white-space: nowrap;
   padding-right: 3mm;
+  letter-spacing: -0.025em;
 }
 
 .list-author {
   width: 34mm;
   white-space: nowrap;
-  padding-right: 4mm;
+  padding-right: 3mm;
 }
 
 /* Work titles italic, apparatus prose roman (Bringhurst convention). <cite>
@@ -425,19 +426,14 @@ body {
   margin-bottom: 0;
 }
 
-/* Inline horse-rider mark. Source EPS is ≈1.15:1; lock height and let width
-   derive from the intrinsic ratio so it can't squash. */
 .colophon-logo {
   display: inline-block;
-  height: 5mm;
+  height: 2em;
   width: auto;
   vertical-align: middle;
-  margin: 0 1mm;
 }
 
 .copy-number-blank {
   display: inline-block;
   width: 12mm;
-  border-bottom: 0.5pt solid black;
-  margin: 0 2mm;
 }

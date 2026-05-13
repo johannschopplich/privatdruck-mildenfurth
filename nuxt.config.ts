@@ -5,8 +5,6 @@ export default defineNuxtConfig({
 
   compatibilityDate: '2026-01-01',
 
-  css: ['~/assets/css/main.css'],
-
   nitro: {
     prerender: {
       routes: ['/2025', '/2026'],
