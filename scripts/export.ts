@@ -1,15 +1,14 @@
-import { spawn } from 'node:child_process'
 import { access, mkdir, readdir } from 'node:fs/promises'
 import { dirname, relative, resolve } from 'node:path'
 import process from 'node:process'
-import { setTimeout as delay } from 'node:timers/promises'
 import { parseArgs } from 'node:util'
 import * as clack from '@clack/prompts'
 import * as ansis from 'ansis'
 import { chromium } from 'playwright'
+import { serve } from 'srvx'
+import { serveStatic } from 'srvx/static'
 
 const STATIC_SERVER_PORT = 4321
-const SERVER_READY_TIMEOUT_MS = 10_000
 
 const root = resolve(import.meta.dirname, '..')
 const booksDir = resolve(root, 'content/books')
@@ -35,27 +34,17 @@ if (!(await pathExists(publicDir))) {
 const outFile = resolve(root, `exports/${year}.pdf`)
 await mkdir(dirname(outFile), { recursive: true })
 
-const previewServer = spawn(
-  'pnpm',
-  [
-    'exec',
-    'serve',
-    '-l',
-    String(STATIC_SERVER_PORT),
-    '--no-clipboard',
-    publicDir,
-  ],
-  { cwd: root, stdio: 'ignore' },
-)
-
 const spinner = clack.spinner()
 spinner.start(`Starting static server on port ${STATIC_SERVER_PORT}`)
 
+const previewServer = serve({
+  port: STATIC_SERVER_PORT,
+  middleware: [serveStatic({ dir: publicDir })],
+  fetch: () => new Response('Not found', { status: 404 }),
+})
+
 try {
-  await waitForServer(
-    `http://localhost:${STATIC_SERVER_PORT}/`,
-    SERVER_READY_TIMEOUT_MS,
-  )
+  await previewServer.ready()
 
   spinner.message('Launching Chromium')
   const browser = await chromium.launch()
@@ -72,7 +61,7 @@ try {
 
   spinner.message(`Navigating to /${year}`)
   await page.emulateMedia({ media: 'print' })
-  await page.goto(`http://localhost:${STATIC_SERVER_PORT}/${year}`, {
+  await page.goto(new URL(year, previewServer.url).href, {
     waitUntil: 'networkidle',
   })
 
@@ -94,7 +83,7 @@ try {
   await browser.close()
   spinner.stop(`PDF written to ${ansis.cyan(relative(root, outFile))}`)
 } finally {
-  previewServer.kill()
+  await previewServer.close(true)
 }
 
 clack.outro('Done.')
@@ -106,18 +95,6 @@ async function findLatestYear(directory: string) {
     .map((name) => name.slice(0, 4))
     .sort()
     .at(-1)
-}
-
-async function waitForServer(url: string, timeoutMs: number) {
-  const deadline = Date.now() + timeoutMs
-  while (Date.now() < deadline) {
-    try {
-      const response = await fetch(url)
-      if (response.ok) return
-    } catch {}
-    await delay(100)
-  }
-  throw new Error(`Static server did not respond within ${timeoutMs}ms`)
 }
 
 async function pathExists(targetPath: string) {

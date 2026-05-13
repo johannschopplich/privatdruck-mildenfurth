@@ -9,9 +9,7 @@ defineProps<{
 
 <template>
   <section class="page-title">
-    <h1 class="title-author">
-      {{ authorFirst }}<br />{{ authorLast }}
-    </h1>
+    <h1 class="title-author">{{ authorFirst }}<br />{{ authorLast }}</h1>
     <p class="title-work">
       {{ title }}
     </p>
