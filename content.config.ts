@@ -7,7 +7,8 @@ export default defineContentConfig({
       source: 'books/*.md',
       schema: z.object({
         year: z.number(),
-        author: z.string(),
+        authorFirst: z.string(),
+        authorLast: z.string(),
         title: z.string(),
         subtitle: z.string().optional(),
         copies: z.number(),

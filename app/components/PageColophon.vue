@@ -11,7 +11,7 @@ defineProps<{
 
 <template>
   <section class="page-colophon">
-    <div class="colophon-upper">
+    <div>
       <p class="stanza">
         {{ ordinal }} Privatdruck für den<br />
         Arbeitskreis Kunst und Kultur am Kloster Mildenfurth,<br />

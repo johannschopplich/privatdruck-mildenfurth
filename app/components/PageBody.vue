@@ -11,11 +11,7 @@ defineProps<{
 <template>
   <section class="page-body">
     <div class="body-content">
-      <div
-        v-if="epigraph"
-        class="epigraph"
-        :data-align="epigraph.align ?? 'left'"
-      >
+      <div v-if="epigraph" class="epigraph" :data-align="epigraph.align">
         <MDC :value="epigraph.quote" tag="p" unwrap="p" class="quote" />
         <p class="attribution">
           {{ epigraph.authorName }},

@@ -17,22 +17,28 @@ if (!book.value) {
   })
 }
 
+const fullAuthor = `${book.value.authorFirst} ${book.value.authorLast}`
 const roman = toRoman(book.value.year)
 const earlierPublications = previousPublications.filter(
   (publication) => publication.year < currentYear,
 )
 
 useHead({
-  title: `${book.value.author} – ${book.value.title}`,
+  title: `${fullAuthor} – ${book.value.title}`,
   htmlAttrs: { lang: 'de' },
 })
 </script>
 
 <template>
   <article v-if="book" class="book">
-    <PageCover :author="book.author" :title="book.title" />
+    <PageCover :author="fullAuthor" :title="book.title" />
     <PageBlank />
-    <PageTitle :author="book.author" :title="book.title" :roman="roman" />
+    <PageTitle
+      :author-first="book.authorFirst"
+      :author-last="book.authorLast"
+      :title="book.title"
+      :roman="roman"
+    />
     <PageBlank />
     <PageBody :epigraph="book.epigraph">
       <ContentRenderer :value="book" />
@@ -44,7 +50,7 @@ useHead({
       :copies="book.copies"
       :reading-date="book.readingDate"
       :location="book.location"
-      :author="book.author"
+      :author="fullAuthor"
     />
   </article>
 </template>

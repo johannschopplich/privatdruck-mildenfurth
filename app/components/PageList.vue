@@ -21,19 +21,13 @@ function renderTitle(publication: Publication): TitlePart[] {
 
 function parseSupplement(text: string): TitlePart[] {
   const parts: TitlePart[] = []
-  const embeddedTitleRegex = /\*([^*]+)\*/g
   let lastIndex = 0
-  let regexMatch: RegExpExecArray | null = embeddedTitleRegex.exec(text)
-  while (regexMatch !== null) {
-    if (regexMatch.index > lastIndex) {
-      parts.push({
-        kind: 'text',
-        value: text.slice(lastIndex, regexMatch.index),
-      })
+  for (const match of text.matchAll(/\*([^*]+)\*/g)) {
+    if (match.index > lastIndex) {
+      parts.push({ kind: 'text', value: text.slice(lastIndex, match.index) })
     }
-    parts.push({ kind: 'title', value: regexMatch[1]! })
-    lastIndex = embeddedTitleRegex.lastIndex
-    regexMatch = embeddedTitleRegex.exec(text)
+    parts.push({ kind: 'title', value: match[1]! })
+    lastIndex = match.index + match[0].length
   }
   if (lastIndex < text.length) {
     parts.push({ kind: 'text', value: text.slice(lastIndex) })
