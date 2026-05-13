@@ -144,13 +144,11 @@
 
 html,
 body {
-  font-family: 'Sirba', Georgia, serif;
+  font-family: var(--font-serif);
   font-size: 11pt;
   line-height: var(--body-line-height);
   color: black;
   background: white;
-  margin: 0;
-  padding: 0;
 }
 
 /* Hide Nuxt's teleport target so it doesn't trigger a trailing empty page. */
@@ -194,7 +192,6 @@ body {
 
 .cover-title,
 .cover-author {
-  margin: 0;
   line-height: 1;
   white-space: nowrap;
   font-size: 15pt;
@@ -224,7 +221,7 @@ body {
   font-weight: 700;
   font-size: 22pt;
   line-height: 1.1;
-  margin: var(--title-author-offset) 0 0 0;
+  margin-top: var(--title-author-offset);
 }
 
 .title-work {
@@ -232,7 +229,7 @@ body {
   font-weight: 400;
   font-size: 18pt;
   line-height: 1.2;
-  margin: var(--title-work-offset) 0 0 0;
+  margin-top: var(--title-work-offset);
 }
 
 .title-imprint {
@@ -241,10 +238,6 @@ body {
   font-size: 11pt;
   line-height: 1.3;
   margin-top: auto;
-}
-
-.title-imprint p {
-  margin: 0;
 }
 
 .body-content {
@@ -259,7 +252,7 @@ body {
 }
 
 .body-content p {
-  margin: 0 0 var(--p-gap) 0;
+  margin-bottom: var(--p-gap);
   text-indent: 0;
   orphans: 4;
   widows: 4;
@@ -282,7 +275,7 @@ body {
   hyphens: none;
   -webkit-hyphens: none;
   break-inside: avoid;
-  margin: 0 0 calc(var(--baseline) * 1.5) 0;
+  margin-bottom: calc(var(--baseline) * 1.5);
 }
 
 .poem:last-child {
@@ -290,12 +283,12 @@ body {
 }
 
 .poem-title {
-  margin: 0 0 var(--h-gap) 0;
+  margin-bottom: var(--h-gap);
 }
 
 .poem-body p {
   white-space: pre-line;
-  margin: 0 0 var(--p-gap) 0;
+  margin-bottom: var(--p-gap);
   text-indent: 0;
   text-align: left;
   hyphens: none;
@@ -308,7 +301,7 @@ body {
 .poem-date {
   font-style: italic;
   text-align: right;
-  margin: var(--p-gap) 0 0 0;
+  margin-top: var(--p-gap);
 }
 
 .epigraph {
@@ -323,8 +316,7 @@ body {
 }
 
 .epigraph .quote {
-  margin: 0 0 6pt 0;
-  padding: 0;
+  margin-bottom: 6pt;
   hyphens: none;
 }
 
@@ -349,7 +341,7 @@ body {
   font-family: 'Trola', serif;
   font-weight: 600;
   font-size: 12pt;
-  margin: 0 0 var(--h-gap) 0;
+  margin-bottom: var(--h-gap);
   line-height: 1.2;
 }
 
@@ -359,7 +351,7 @@ body {
   font-family: 'Sirba', serif;
   font-weight: 700;
   font-size: 11pt;
-  margin: 0 0 var(--p-gap) 0;
+  margin-bottom: var(--p-gap);
 }
 
 .page-list {
@@ -421,12 +413,8 @@ body {
   padding-top: var(--content-top-offset);
 }
 
-.page-colophon p {
-  margin: 0;
-}
-
 .page-colophon .stanza {
-  margin: 0 0 var(--colophon-p-gap) 0;
+  margin-bottom: var(--colophon-p-gap);
 }
 
 .colophon-lower {
