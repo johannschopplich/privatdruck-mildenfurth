@@ -1,0 +1,37 @@
+{
+  "name": "privatdruck-mildenfurth",
+  "type": "module",
+  "private": true,
+  "packageManager": "pnpm@11.1.1",
+  "scripts": {
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "export": "tsx scripts/export.ts",
+    "compare": "tsx scripts/compare.ts",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier \"**/*.{css,html,json,md,mjs,ts,vue,yml}\" --write",
+    "format:check": "prettier \"**/*.{css,html,json,md,mjs,ts,vue,yml}\" --check",
+    "test:types": "vue-tsc -b --noEmit",
+    "prepare": "nuxt prepare"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@antfu/eslint-config": "^8.3.0",
+    "@nuxt/content": "^3.13.0",
+    "@tailwindcss/vite": "^4.3.0",
+    "@types/node": "^24.12.4",
+    "better-sqlite3": "^12.10.0",
+    "eslint": "^10.3.0",
+    "nuxt": "^4.4.5",
+    "playwright": "^1.60.0",
+    "prettier": "^3.8.3",
+    "prettier-plugin-tailwindcss": "^0.8.0",
+    "serve": "^14.2.6",
+    "tailwindcss": "^4.3.0",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3",
+    "vue-tsc": "^3.2.8"
+  }
+}

@@ -1,0 +1,426 @@
+/* Mildenfurth Privatdruck — Print Layout */
+
+:root {
+  --trim-w: 155mm;
+  --trim-h: 230mm;
+  /* Modified Tschichold canon for a bound book: inner < top < outer < bottom.
+     Bottom is the largest band so the folio gets room to breathe without
+     crashing into the trim edge. */
+  --top-margin: 22mm;
+  --bottom-margin: 30mm;
+  --inner-margin: 18mm;
+  --outer-margin: 26mm;
+  /* Derived from trim + margins — wherever the text block bounds are referenced
+     (ornament width, section min-heights), use these so a single margin change
+     propagates everywhere. */
+  --text-block-width: calc(var(--trim-w) - var(--inner-margin) - var(--outer-margin));
+  --text-block-height: calc(var(--trim-h) - var(--top-margin) - var(--bottom-margin));
+  /* Gap from ornament rule's bottom to first line of content — about 1.5 body
+     lines. Applied uniformly to body, list, and colophon. */
+  --content-top-offset: 25pt;
+}
+
+@page {
+  size: var(--trim-w) var(--trim-h);
+  /* Default = recto. :left flips inner/outer below. */
+  margin: var(--top-margin) var(--outer-margin) var(--bottom-margin) var(--inner-margin);
+  /* thinThick decorative rule, 111mm wide = text-block width. @top-center on
+     a page with only a center margin box spans from the inner to the outer
+     page-margin, so the rule sits centered above the text block on both
+     recto and verso. Suppressed on cover/blank below. */
+  @top-center {
+    content: '';
+    display: block;
+    width: var(--text-block-width);
+    height: 0.75pt;
+    border-top: 1.5pt solid black;
+    border-bottom: 0.75pt solid black;
+    box-sizing: content-box;
+    vertical-align: bottom;
+  }
+}
+
+@page :left {
+  margin: var(--top-margin) var(--inner-margin) var(--bottom-margin) var(--outer-margin);
+}
+
+@page cover { margin: 0; @top-center { content: none; } }
+@page blank { @top-center { content: none; } }
+
+/* Folio numbering. Counter starts at 0 so physical page 1 (cover) displays
+   as 1, page 5 (first body) as 5. Front-matter pages (cover, blank, title,
+   blank) count internally but don't render a folio — only @page body has
+   @bottom-* margin boxes. Body therefore reads 5–13, back-matter (list,
+   colophon) stays unfoliated, per Bringhurst back-matter convention. */
+:root { counter-reset: page 0; }
+
+/* Folio alternates by page side: recto → bottom-right, verso → bottom-left.
+   vertical-align: middle parks the digit at the vertical center of the 35mm
+   bottom margin band — ~13mm of air to the text block, ~17mm to the trim. */
+@page body:right {
+  @bottom-right {
+    content: counter(page);
+    font-family: 'Sirba', serif;
+    font-size: 11pt;
+    font-variant-numeric: lining-nums tabular-nums;
+    vertical-align: middle;
+  }
+}
+
+@page body:left {
+  @bottom-left {
+    content: counter(page);
+    font-family: 'Sirba', serif;
+    font-size: 11pt;
+    font-variant-numeric: lining-nums tabular-nums;
+    vertical-align: middle;
+  }
+}
+
+
+/* Page-type assignments. Each section starts on its own page. Front-matter
+   blanks are inserted explicitly via <PageBlank /> in the template, because
+   Chromium 148 doesn't auto-insert blanks for `break-before: recto`. */
+.page-cover    { page: cover; }
+.page-blank    { page: blank;    break-before: page; break-after: page; min-height: 1mm; }
+.page-title    { page: title;    break-before: page; }
+.page-body     { page: body;     break-before: page; }
+.page-list     { page: list;     break-before: page; }
+.page-colophon { page: colophon; break-before: page; }
+
+/* Cover has its own internal positioning. */
+.page-cover {
+  width: var(--trim-w);
+  height: var(--trim-h);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Base typography */
+
+html, body {
+  font-family: 'Sirba', Georgia, serif;
+  font-size: 11pt;
+  /* 1.5625 = 1.25 × Sirba's single-line metric (Win-asc+desc = 13.75pt at 11pt).
+     Matches Word's <w:spacing line="300" lineRule="auto"> on the Flietext style. */
+  line-height: 1.5625;
+  color: black;
+  background: white;
+  margin: 0;
+  padding: 0;
+}
+
+/* Hide Nuxt's teleport target so it doesn't trigger a trailing empty page. */
+#teleports { display: none; }
+
+.book {
+  font-feature-settings: "kern" 1, "liga" 1, "onum" 1;
+}
+
+/* Cover — landscape canvas rotated 90° counter-clockwise onto portrait page so
+   text reads "up the spine" (head-tilt LEFT), matching Word's rot+flipV.
+   After rotation, the canvas's bottom-right corner maps to the portrait's
+   top-right corner. We lay author + title out as a flex row on the canvas;
+   justify-content:flex-end packs them to canvas-right (= portrait top), and
+   align-items:flex-end anchors the baseline strip to canvas-bottom (= portrait
+   right). Padding keeps the strip from crashing into the trim edges. */
+
+.cover-canvas {
+  position: absolute;
+  width: var(--trim-h);
+  height: var(--trim-w);
+  top: 0;
+  left: 0;
+  transform-origin: 0 0;
+  transform: translate(0, var(--trim-h)) rotate(-90deg);
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: flex-end;
+  /* padding-right (canvas) = top breathing room in portrait — mirrors the
+     body page's top-margin so the spine head sits at the same height as the
+     ornament rule on inner pages. padding-bottom (canvas) = right-edge
+     breathing room in portrait. */
+  padding: 0 var(--top-margin) var(--outer-margin) 0;
+  font-family: 'Trola', serif;
+  box-sizing: border-box;
+}
+
+.cover-title,
+.cover-author {
+  margin: 0;
+  line-height: 1;
+  white-space: nowrap;
+  font-size: 15pt;
+}
+
+/* Per original Word XML: "Romina Nikolić" carries DeckblatttitelZchn (Trola
+   Light 15pt). "Litanei …" inherits Deckblattuntertitel (basedOn Deckblatttitel
+   = 15pt), overrides font to Trola Bold. Same size, weight differs. */
+.cover-author {
+  font-weight: 300;
+  /* Word-space gap before the title, in canvas-x direction = portrait
+     bottom→top reading direction. Keeps the spine block compact. */
+  margin-right: 4mm;
+}
+
+.cover-title {
+  font-weight: 700;
+}
+
+/* Title page — explicit content-area height (page height minus top+bottom
+   margins) makes the flex column fill the page reliably, so margin-top:auto
+   on the imprint pushes it flush against the page bottom margin. */
+
+.page-title {
+  display: flex;
+  flex-direction: column;
+  min-height: var(--text-block-height);
+  text-align: right;
+}
+
+.title-author {
+  font-family: 'Trola', serif;
+  font-weight: 700;
+  font-size: 22pt;
+  line-height: 1.1;
+  margin: 36mm 0 0 0;
+}
+
+.title-work {
+  font-family: 'Trola', serif;
+  font-weight: 400;
+  font-size: 18pt;
+  line-height: 1.2;
+  margin: 6mm 0 0 0;
+}
+
+.title-imprint {
+  font-family: 'Sirba', serif;
+  font-weight: 400;
+  font-size: 11pt;
+  line-height: 1.3;
+  margin-top: auto;
+}
+
+.title-imprint p {
+  margin: 0;
+}
+
+/* Body */
+
+.body-content {
+  text-align: justify;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  font-feature-settings: "kern" 1, "liga" 1, "onum" 1;
+  /* Push the body text below the content-area top on EVERY body page —
+     matches Word's reserved header band. box-decoration-break: clone makes
+     the padding re-apply on each fragment when the section flows across
+     pages. */
+  padding-top: var(--content-top-offset);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.body-content p {
+  margin: 0 0 12pt 0;
+  text-indent: 0;
+  orphans: 4;
+  widows: 4;
+}
+
+.body-content p:last-child {
+  margin-bottom: 0;
+}
+
+/* Explicit page break inside body prose. Used as the MDC block directive
+   `::page-break` to split a single content document across two physical
+   pages without splitting the markdown source. */
+.page-break {
+  break-before: page;
+}
+
+/* Verse setting (used by the ::poem MDC component). Each paragraph is one
+   stanza; line breaks within a stanza are preserved via white-space: pre-line
+   so the markdown author writes verse line-for-line. Ragged-right, no
+   hyphenation, no first-line indent — classical Bringhurst poetry setting. */
+.poem {
+  text-align: left;
+  hyphens: none;
+  -webkit-hyphens: none;
+  /* Each poem opens generously and avoids breaking onto a new page mid-poem
+     when avoidable. */
+  break-inside: avoid;
+  margin: 0 0 24pt 0;
+}
+
+.poem:last-child {
+  margin-bottom: 0;
+}
+
+.poem-title {
+  /* Inherits .body-content h2 family/size/weight from above. */
+  margin: 0 0 18pt 0;
+}
+
+.poem-body p {
+  white-space: pre-line;
+  margin: 0 0 12pt 0;
+  text-indent: 0;
+  text-align: left;
+  hyphens: none;
+}
+
+.poem-body p:last-child {
+  margin-bottom: 0;
+}
+
+.poem-date {
+  font-style: italic;
+  text-align: right;
+  margin: 12pt 0 0 0;
+}
+
+.epigraph {
+  /* Matches Word's empty Flietext paragraph between attribution and first
+     prose: one line of line-height (~17pt) + after-spacing (12pt) ≈ 29pt. */
+  margin-bottom: 29pt;
+  hyphens: none;
+}
+
+/* Opt-in right alignment (e.g. 2025 Nikolić). Default is left. */
+.epigraph[data-align="right"] {
+  text-align: right;
+}
+
+.epigraph .quote {
+  margin: 0 0 6pt 0;
+  hyphens: none;
+}
+
+.epigraph .attribution {
+  margin: 0;
+}
+
+.epigraph .attribution .work {
+  font-style: italic;
+}
+
+/* Top-level headings inside body content (poem titles) and on the list page
+   ("Bisher erschienen:"). +1pt over body and set in Trola Semibold — the
+   display face from cover/title page echoes into the back-matter and into
+   poetry openings, tying the two-family system together. */
+.body-content h1,
+.body-content h2,
+.list-heading {
+  font-family: 'Trola', serif;
+  font-weight: 600;
+  font-size: 12pt;
+  margin: 0 0 18pt 0;
+  line-height: 1.2;
+}
+
+/* Mid-level markers inside poems (section numbers, parenthetical date tags
+   used as headings). Same body size, bold weight only — Bringhurst's "weight
+   first, size second" hierarchy. */
+.body-content h3 {
+  font-family: 'Sirba', serif;
+  font-weight: 700;
+  font-size: 11pt;
+  margin: 0 0 12pt 0;
+}
+
+/* List (Bisher erschienen) */
+
+.page-list {
+  padding-top: var(--content-top-offset);
+}
+
+.list-block {
+  font-family: 'Sirba', serif;
+}
+
+.list-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: lining-nums tabular-nums;
+  /* Apparat-Leading: a publication list reads as a single dense unit, not as
+     spaced prose. 1.35 follows Bringhurst's convention for indices and
+     bibliographies. */
+  line-height: 1.35;
+}
+
+.list-table td {
+  vertical-align: top;
+  padding: 0 0 2pt 0;
+}
+
+.list-year {
+  width: 12mm;
+  white-space: nowrap;
+  padding-right: 3mm;
+}
+
+.list-author {
+  width: 34mm;
+  white-space: nowrap;
+  padding-right: 4mm;
+}
+
+.list-title {
+  font-style: normal;
+}
+
+.list-note {
+  font-style: italic;
+}
+
+/* Colophon — flex column with the upper stanzas pinned below the ornament
+   gap and the lower stanzas anchored flush to the page-bottom margin via
+   margin-top:auto, mirroring the title-page imprint pattern. */
+
+.page-colophon {
+  display: flex;
+  flex-direction: column;
+  min-height: var(--text-block-height);
+  font-family: 'Sirba', serif;
+  font-size: 9.5pt;
+  /* Slightly looser than the body's proportional equivalent — smaller type
+     takes more relative leading to feel calm rather than crowded. */
+  line-height: 1.5;
+  padding-top: var(--content-top-offset);
+}
+
+.page-colophon p {
+  margin: 0;
+}
+
+.page-colophon .stanza {
+  margin: 0 0 12pt 0;
+}
+
+.colophon-lower {
+  margin-top: auto;
+}
+
+.colophon-lower .stanza:last-child {
+  margin-bottom: 0;
+}
+
+/* Inline horse-rider mark. Source EPS is ≈1.15:1; lock height and let width
+   derive from the intrinsic ratio so it can't squash. */
+.colophon-logo {
+  display: inline-block;
+  height: 5mm;
+  width: auto;
+  vertical-align: middle;
+  margin: 0 1mm;
+}
+
+.copy-number-blank {
+  display: inline-block;
+  width: 12mm;
+  border-bottom: 0.4pt solid black;
+  margin: 0 2mm;
+}

@@ -1,0 +1,9 @@
+@import "tailwindcss";
+@import "./fonts.css";
+@import "./print.css";
+
+@theme {
+  --font-sans: 'Sirba', Georgia, serif;
+  --font-serif: 'Sirba', Georgia, serif;
+  --font-display: 'Trola', Georgia, serif;
+}
