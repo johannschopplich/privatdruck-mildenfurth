@@ -10,7 +10,6 @@ Ursprünglich in Word gesetzt. Migriert auf Nuxt 4 + @nuxt/content + CSS Paged M
 
 Robert Bringhurst, _The Elements of Typographic Style_. Konkret:
 
-- **Werktitel kursiv** (`<cite>`), niemals in Anführungszeichen
 - **Modifizierter Tschichold-Margin-Kanon**: inner < top < outer < bottom
 - **Baseline-Grid**: vertikale Offsets im Body-Flow (zwischen Blöcken: `p`, `h1`, `h2`, `.poem`, `.epigraph` außen) leiten sich aus `--baseline = 11pt × 1.5` ab. Sub-block-Spacing innerhalb geschlossener typografischer Einheiten (Listenzellen, Quote/Attribution, Inline-Bildränder) und physische Page-Chrome (Trim, Page-Margins) dürfen direkt in pt/mm notiert sein.
 - **Titelseite**: Autorenblock bei ~⅓ der Trim-Höhe (Bringhursts optisches oberes Drittel)
@@ -18,8 +17,6 @@ Robert Bringhurst, _The Elements of Typographic Style_. Konkret:
 - **Hierarchie**: weight first, size second
 
 ## Stack & Befehle
-
-Package Manager: `pnpm`. Schriften: Sirba (Body), Trola (Display).
 
 ```bash
 pnpm dev              # Dev-Server
@@ -32,4 +29,4 @@ pnpm lint             # ESLint
 ## Layout-Konventionen
 
 - **`app/assets/css/print.css` ist das Stylebook.** Vue-Components sind absichtlich headless (Struktur + Daten, keine `<style>` Blöcke).
-- **MDC-Components** (`::poem`, `::page-break`) werden aus Markdown gerendert, nicht aus Vue-Templates.
+- **MDC für Content, Frontmatter für Metadaten**: Content-Elemente als MDC-Block (`::poem`, `::epigraph`, `::page-break`); Frontmatter trägt nur strukturelle Daten (Jahr, Autor, Editor, Auflage, Lesungsdatum).
