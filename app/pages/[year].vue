@@ -40,7 +40,7 @@ useHead({
       :roman="roman"
     />
     <PageBlank />
-    <PageBody :epigraph="book.epigraph">
+    <PageBody>
       <ContentRenderer :value="book" />
     </PageBody>
     <PageList :publications="earlierPublications" />

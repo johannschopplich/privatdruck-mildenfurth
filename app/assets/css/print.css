@@ -325,14 +325,19 @@ body {
 
 .epigraph .quote {
   margin: 0 0 6pt 0;
+  padding: 0;
   hyphens: none;
+}
+
+.epigraph .quote > p {
+  margin: 0;
 }
 
 .epigraph .attribution {
   margin: 0;
 }
 
-.epigraph .attribution .work {
+.epigraph .attribution cite {
   font-style: italic;
 }
 
