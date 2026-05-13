@@ -22,6 +22,7 @@ function renderTitle(publication: Publication): TitlePart[] {
 function parseSupplement(text: string): TitlePart[] {
   const parts: TitlePart[] = []
   let lastIndex = 0
+
   for (const match of text.matchAll(/\*([^*]+)\*/g)) {
     if (match.index > lastIndex) {
       parts.push({ kind: 'text', value: text.slice(lastIndex, match.index) })
@@ -29,9 +30,11 @@ function parseSupplement(text: string): TitlePart[] {
     parts.push({ kind: 'title', value: match[1]! })
     lastIndex = match.index + match[0].length
   }
+
   if (lastIndex < text.length) {
     parts.push({ kind: 'text', value: text.slice(lastIndex) })
   }
+
   return parts
 }
 </script>
