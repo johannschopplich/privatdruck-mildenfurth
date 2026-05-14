@@ -19,7 +19,7 @@
   --body-line-height: 1.5;
   /* Vertical rhythm unit – one body line (16.5pt ≈ 5.82mm). All vertical
      offsets derive from this so the layout snaps to a single grid. */
-  --baseline: calc(11pt * var(--body-line-height));
+  --baseline: calc(var(--text-body) * var(--body-line-height));
   /* Stack gaps. p-gap is 0.75 baselines for prose density; h-gap is one full
      baseline – the canonical "skip a line" before a heading. */
   --p-gap: calc(var(--baseline) * 0.75);
@@ -32,9 +32,16 @@
      baseline below. */
   --title-author-offset: calc(var(--baseline) * 9);
   --title-work-offset: var(--baseline);
-  /* Colophon has its own rhythm at 9.5pt – stanza gap mirrors --p-gap's
+  /* Colophon has its own rhythm at meta size – stanza gap mirrors --p-gap's
      proportion at the local baseline. */
-  --colophon-p-gap: calc(9.5pt * var(--body-line-height) * 0.75);
+  --colophon-p-gap: calc(var(--text-meta) * var(--body-line-height) * 0.75);
+}
+
+/* Custom counter so we can start incrementing at Title and exclude
+   Cover + Cover-Verso from the book block. Title = 1, Title-Verso = 2,
+   first Body page = 3. */
+:root {
+  counter-reset: book-folio;
 }
 
 @page {
@@ -44,7 +51,7 @@
     var(--inner-margin);
   /* thinThick rule above the text block. @top-center on a page with only a
      center margin box spans from inner to outer page-margin, so the rule
-     stays centered on both recto and verso. Suppressed on cover/blank. */
+     stays centered on both recto and verso. Suppressed on cover/blanks. */
   @top-center {
     content: '';
     display: block;
@@ -68,25 +75,44 @@
     content: none;
   }
 }
-@page blank {
+
+@page blank-cover-verso {
   @top-center {
     content: none;
   }
 }
 
-/* Folio numbering. Counter starts at 0 so physical page 1 displays as 1.
-   Only @page body has @bottom-* margin boxes, so front-matter and back-
-   matter pages count internally but stay unfoliated (Bringhurst convention). */
-:root {
-  counter-reset: page 0;
+@page blank-title-verso {
+  counter-increment: book-folio;
+  @top-center {
+    content: none;
+  }
 }
 
-/* Folio alternates by page side: recto → bottom-right, verso → bottom-left. */
+@page title {
+  counter-increment: book-folio;
+}
+
+@page body {
+  counter-increment: book-folio;
+}
+
+@page list {
+  counter-increment: book-folio;
+}
+
+@page colophon {
+  counter-increment: book-folio;
+}
+
+/* Folio alternates by page side: recto → bottom-right, verso → bottom-left.
+   Only body shows the folio – list and colophon increment silently
+   (Bringhurst convention for back-matter in a thin private printing). */
 @page body:right {
   @bottom-right {
-    content: counter(page);
-    font-family: 'Sirba', serif;
-    font-size: 11pt;
+    content: counter(book-folio);
+    font-family: var(--font-serif);
+    font-size: var(--text-body);
     font-variant-numeric: lining-nums tabular-nums;
     vertical-align: middle;
   }
@@ -94,53 +120,60 @@
 
 @page body:left {
   @bottom-left {
-    content: counter(page);
-    font-family: 'Sirba', serif;
-    font-size: 11pt;
+    content: counter(book-folio);
+    font-family: var(--font-serif);
+    font-size: var(--text-body);
     font-variant-numeric: lining-nums tabular-nums;
     vertical-align: middle;
   }
 }
 
-/* Front-matter blanks are inserted explicitly via <PageBlank /> in the
-   template – Chromium 148 doesn't auto-insert blanks for `break-before: recto`. */
 .page-cover {
   page: cover;
-}
-.page-blank {
-  page: blank;
-  break-before: page;
-  break-after: page;
-  min-height: 1mm;
-}
-.page-title {
-  page: title;
-  break-before: page;
-}
-.page-body {
-  page: body;
-  break-before: page;
-}
-.page-list {
-  page: list;
-  break-before: page;
-}
-.page-colophon {
-  page: colophon;
-  break-before: page;
-}
-
-.page-cover {
   width: var(--trim-w);
   height: var(--trim-h);
   position: relative;
   overflow: hidden;
 }
 
+.page-blank {
+  break-before: page;
+  break-after: page;
+  min-height: 1mm;
+}
+
+.page-blank-cover-verso {
+  page: blank-cover-verso;
+}
+
+.page-blank-title-verso {
+  page: blank-title-verso;
+}
+
+.page-title {
+  page: title;
+  break-before: page;
+}
+
+.page-body {
+  page: body;
+  break-before: page;
+}
+
+.page-list {
+  page: list;
+  break-before: page;
+}
+
+.page-colophon {
+  page: colophon;
+  break-before: page;
+}
+
 html,
 body {
   font-family: var(--font-serif);
-  font-size: 11pt;
+  font-size: var(--text-body);
   line-height: var(--body-line-height);
   color: black;
   background: white;
@@ -158,12 +191,10 @@ body {
     'onum' 1;
 }
 
-/* Cover – vertical text strip flush to portrait-right, reading up the
-   spine (head-tilt LEFT). `sideways-lr` runs inline bottom-to-top, so the
-   HTML-first author sits below the title. Insets hardcoded mm (overlay
-   tolerance + artistic generosity); 30mm top echoes --bottom-margin, the
-   canon's largest band, as a visual anchor. */
-
+/* Vertical text strip flush to portrait-right, reading up the spine
+   (head-tilt LEFT). `sideways-lr` runs inline bottom-to-top, so the
+   HTML-first author sits below the title. 30mm top inset echoes
+   --bottom-margin, the canon's largest band, as a visual anchor. */
 .cover-canvas {
   position: absolute;
   inset: 0;
@@ -174,29 +205,20 @@ body {
   align-items: flex-end;
   padding-top: 30mm;
   padding-right: 12mm;
-  font-family: 'Trola', serif;
   box-sizing: border-box;
 }
 
-.cover-title,
-.cover-author {
-  line-height: 1;
+.cover-author,
+.cover-title {
   white-space: nowrap;
-  font-size: 15pt;
 }
 
 .cover-author {
-  font-weight: 300;
   margin-inline-end: 2em;
 }
 
-.cover-title {
-  font-weight: 700;
-}
-
-/* Title page – min-height fills the flex column so margin-top:auto on the
-   imprint sticks to the bottom margin. */
-
+/* min-height fills the flex column so margin-top:auto on the imprint
+   sticks to the bottom margin. */
 .page-title {
   display: flex;
   flex-direction: column;
@@ -205,27 +227,16 @@ body {
 }
 
 .title-author {
-  font-family: 'Trola', serif;
-  font-weight: 700;
-  font-size: 22pt;
-  line-height: 1.1;
   margin-top: var(--title-author-offset);
 }
 
 .title-work {
-  font-family: 'Trola', serif;
-  font-weight: 400;
-  font-size: 18pt;
-  line-height: 1.2;
   margin-top: var(--title-work-offset);
 }
 
 .title-imprint {
-  font-family: 'Sirba', serif;
-  font-weight: 400;
-  font-size: 11pt;
-  line-height: 1.3;
   margin-top: auto;
+  line-height: 1.3;
 }
 
 .body-content {
@@ -250,14 +261,12 @@ body {
   margin-bottom: 0;
 }
 
-/* MDC block directive `::page-break` – splits a content document across
-   physical pages without splitting the markdown source. */
 .page-break {
   break-before: page;
 }
 
-/* MDC `::poem` component. Each paragraph is one stanza; pre-line preserves
-   the per-line breaks so the markdown author writes verse line-for-line. */
+/* pre-line on the body paragraphs preserves the per-line breaks so the
+   markdown author writes verse line-for-line; each paragraph is one stanza. */
 .poem {
   text-align: left;
   hyphens: none;
@@ -293,16 +302,16 @@ body {
   margin-bottom: 0;
 }
 
-/* Date stamp – shares the 9.5pt apparat voice with .list-note and the
-   colophon for one consistent metadata register. */
+/* Date stamp – meta voice, shared with .list-note and the colophon for
+   one consistent metadata register. */
 .poem-date {
-  font-size: 9.5pt;
+  font-size: var(--text-meta);
   margin-top: var(--p-gap);
 }
 
 /* Bibliographic note – italic marks it as metadata prose, not text. */
 .note {
-  font-size: 9.5pt;
+  font-size: var(--text-meta);
   font-style: italic;
   margin-top: var(--p-gap);
 }
@@ -313,7 +322,6 @@ body {
   hyphens: none;
 }
 
-/* Opt-in right alignment. */
 .epigraph[data-align='right'] {
   text-align: right;
 }
@@ -335,17 +343,27 @@ body {
   font-style: italic;
 }
 
-/* Top-level headings (poem titles, list heading). Trola Semibold +1pt over
+/* Top-level headings (poem titles, h2 in prose). Trola Semibold +1pt over
    body – the display face from cover/title page echoes into back-matter
    and poetry openings. */
 .body-content h1,
-.body-content h2,
-.list-heading {
-  font-family: 'Trola', serif;
+.body-content h2 {
+  font-family: var(--font-display);
   font-weight: 600;
-  font-size: 12pt;
-  margin-bottom: var(--h-gap);
+  font-size: var(--text-heading);
   line-height: 1.2;
+  margin-bottom: var(--h-gap);
+}
+
+/* Mid-level markers inside poems (section numbers, date tags). Same
+   Trola family as h1/h2 but Regular weight – one heading family across
+   the body, differentiation through weight only. */
+.body-content h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--text-heading);
+  line-height: 1.2;
+  margin-bottom: var(--p-gap);
 }
 
 /* Italic subtitle below an h2 – quietly extends the title without
@@ -356,36 +374,27 @@ body {
   margin-bottom: var(--h-gap);
 }
 
-/* Appendix voice (10pt) – a perceptible step down from 11pt main poetry,
-   still comfortable for sustained prose. */
+/* Steps the whole block down to text-body-small for sustained prose
+   that reads as subordinate to the main poetry. */
 .appendix {
-  font-size: 10pt;
-}
-
-/* Mid-level markers inside poems (section numbers, date tags). Body size,
-   bold weight only. */
-.body-content h3 {
-  font-family: 'Sirba', serif;
-  font-weight: 700;
-  font-size: 11pt;
-  margin-bottom: var(--p-gap);
+  font-size: var(--text-body-small);
 }
 
 .page-list {
   padding-top: var(--content-top-offset);
 }
 
-.list-block {
-  font-family: 'Sirba', serif;
+.list-heading {
+  margin-bottom: var(--h-gap);
 }
 
 .list-table {
   width: 100%;
   border-collapse: collapse;
   font-variant-numeric: lining-nums tabular-nums;
-  /* Apparat-Leading: a publication list reads as a single dense unit, not as
-     spaced prose. 1.35 follows Bringhurst's convention for indices and
-     bibliographies. */
+  /* Apparatus leading – a publication list reads as a single dense unit,
+     not as spaced prose. 1.35 follows Bringhurst's convention for indices
+     and bibliographies. */
   line-height: 1.35;
 }
 
@@ -405,27 +414,23 @@ body {
   padding-inline-end: 0.75em;
 }
 
-/* Work titles italic, apparatus prose roman (Bringhurst convention). <cite>
-   is the semantic element for cited work titles. */
+/* Work titles italic, apparatus prose roman (Bringhurst convention). */
 .list-title cite {
   font-style: italic;
 }
 
-/* Qualifier text under a publication ("Lesung ausgefallen") – smaller +
-   roman so it doesn't compete with the italic title. */
+/* Qualifier text under a publication ("Lesung ausgefallen") – meta voice
+   so it doesn't compete with the italic title. */
 .list-note {
-  font-size: 9.5pt;
+  font-size: var(--text-meta);
 }
 
-/* Colophon – flex column. Upper stanzas pinned below the ornament gap;
-   lower stanzas anchored to the bottom margin. */
-
+/* Flex column – upper stanzas sit below the ornament gap, lower stanzas
+   anchor to the bottom margin. */
 .page-colophon {
   display: flex;
   flex-direction: column;
   min-height: var(--text-block-height);
-  font-family: 'Sirba', serif;
-  font-size: 9.5pt;
   padding-top: var(--content-top-offset);
 }
 

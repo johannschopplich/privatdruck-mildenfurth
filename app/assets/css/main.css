@@ -8,4 +8,35 @@
   --font-sans: 'Sirba', ui-serif, serif;
   --font-serif: 'Sirba', ui-serif, serif;
   --font-display: 'Trola', ui-serif, serif;
+
+  /* Body register as atomic size tokens. Family, weight, and italic stay
+     freely combinable – body can go italic, h3 picks up the heading size
+     in Trola Regular. */
+  --text-meta: 9.5pt;
+  --text-body-small: 10pt;
+  --text-body: 11pt;
+  --text-body--line-height: var(--body-line-height);
+  --text-heading: 12pt;
+  --text-heading--line-height: 1.2;
+}
+
+/* Display composites bind family + size + leading per role. Weight stays
+   separate because cover-author (Light) and cover-title (Bold) share the
+   cover display role at different weights. */
+@utility text-display-cover {
+  font-family: var(--font-display);
+  font-size: 15pt;
+  line-height: 1;
+}
+
+@utility text-display-work {
+  font-family: var(--font-display);
+  font-size: 18pt;
+  line-height: 1.2;
+}
+
+@utility text-display-author {
+  font-family: var(--font-display);
+  font-size: 22pt;
+  line-height: 1.1;
 }

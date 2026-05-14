@@ -32,14 +32,14 @@ useHead({
 <template>
   <article v-if="book" class="book">
     <PageCover :author="fullAuthor" :title="book.title" />
-    <PageBlank />
+    <PageBlank kind="cover-verso" />
     <PageTitle
       :author-first="book.authorFirst"
       :author-last="book.authorLast"
       :title="book.title"
       :roman="roman"
     />
-    <PageBlank />
+    <PageBlank kind="title-verso" />
     <PageBody>
       <ContentRenderer :value="book" />
     </PageBody>

@@ -10,7 +10,7 @@ defineProps<{
 </script>
 
 <template>
-  <section class="page-colophon">
+  <section class="page-colophon text-meta">
     <div>
       <p class="stanza">
         {{ ordinal }} Privatdruck für den<br />
