@@ -1,12 +1,14 @@
 <script setup lang="ts">
 defineProps<{
   title?: string
+  attribution?: string
   date?: string
 }>()
 </script>
 
 <template>
   <div class="poem">
+    <p v-if="attribution" class="poem-attribution">{{ attribution }}</p>
     <h2 v-if="title" class="poem-title">{{ title }}</h2>
     <div class="poem-body">
       <slot />
