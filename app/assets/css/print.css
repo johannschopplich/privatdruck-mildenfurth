@@ -256,9 +256,8 @@ body {
   break-before: page;
 }
 
-/* MDC `::poem` component. Each paragraph is one stanza; pre-wrap preserves
-   line breaks AND leading whitespace, so authors can indent sub-clausal
-   lines (e.g., "Holt die Fahnen / [indent] aus dem Wind"). */
+/* MDC `::poem` component. Each paragraph is one stanza; pre-line preserves
+   the per-line breaks so the markdown author writes verse line-for-line. */
 .poem {
   text-align: left;
   hyphens: none;
@@ -271,9 +270,8 @@ body {
   margin-bottom: 0;
 }
 
-/* Attribution above a poem title (e.g., "(nach Gottfried Benn)" before
-   "Kommt halten wir zusammen"). Italic Sirba at body weight – reads as
-   incidental note, quieter than the Trola title that follows. */
+/* Italic attribution above a poem title – an incidental note, quieter
+   than the Trola title that follows. */
 .poem-attribution {
   font-style: italic;
   margin-bottom: calc(var(--baseline) * 0.25);
@@ -284,7 +282,7 @@ body {
 }
 
 .poem-body p {
-  white-space: pre-wrap;
+  white-space: pre-line;
   margin-bottom: var(--p-gap);
   text-indent: 0;
   text-align: left;
@@ -295,16 +293,14 @@ body {
   margin-bottom: 0;
 }
 
-/* Date stamp under the poem body – same 9.5pt roman supplement voice as
-   .list-note and the colophon, so the book uses one consistent apparat
-   register for metadata. */
+/* Date stamp – shares the 9.5pt apparat voice with .list-note and the
+   colophon for one consistent metadata register. */
 .poem-date {
   font-size: 9.5pt;
   margin-top: var(--p-gap);
 }
 
-/* Bibliographic note (e.g., publication credits below a poem). Italic
-   marks it as metadata prose, not poem text. */
+/* Bibliographic note – italic marks it as metadata prose, not text. */
 .note {
   font-size: 9.5pt;
   font-style: italic;
@@ -352,18 +348,16 @@ body {
   line-height: 1.2;
 }
 
-/* Subtitle below an h2 (e.g., "Hommage auf eine Konditorei" under
-   "Kaffeepause"). Italic Sirba body weight – quietly extends the title
-   without competing with the Trola heading. */
+/* Italic subtitle below an h2 – quietly extends the title without
+   competing with the Trola heading. */
 .prose-subtitle {
   font-style: italic;
   margin-top: calc(var(--baseline) * -0.5);
   margin-bottom: var(--h-gap);
 }
 
-/* Appendix voice (10pt) – Kaffeepause prose + Vertraulichkeit closing poem.
-   A perceptible step down from 11pt main poetry without compromising
-   sustained prose legibility. */
+/* Appendix voice (10pt) – a perceptible step down from 11pt main poetry,
+   still comfortable for sustained prose. */
 .appendix {
   font-size: 10pt;
 }
