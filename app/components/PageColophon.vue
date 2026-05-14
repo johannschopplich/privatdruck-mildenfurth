@@ -20,7 +20,9 @@ defineProps<{
       <p class="stanza">
         Erschienen in {{ copies }} Exemplaren<br />
         zur Lesung der Autorin am {{ readingDate }}<br />
-        im {{ location }}.<br />
+        im {{ location }}.
+      </p>
+      <p class="stanza">
         Dieses Exemplar trägt die Nummer:<span class="copy-number-blank" />/
         {{ copies }}
       </p>
