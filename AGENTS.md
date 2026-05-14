@@ -12,7 +12,6 @@ Robert Bringhurst, _The Elements of Typographic Style_. Konkret:
 
 - **Modifizierter Tschichold-Margin-Kanon**: inner < top < outer < bottom
 - **Baseline-Grid**: vertikale Offsets im Body-Flow (zwischen Blöcken: `p`, `h1`, `h2`, `.poem`, `.epigraph` außen) leiten sich aus `--baseline = 11pt × 1.5` ab. Sub-block-Spacing innerhalb geschlossener typografischer Einheiten (Listenzellen, Quote/Attribution, Inline-Bildränder) und physische Page-Chrome (Trim, Page-Margins) dürfen direkt in pt/mm notiert sein.
-- **Titelseite**: Autorenblock bei ~⅓ der Trim-Höhe (Bringhursts optisches oberes Drittel)
 - **Folios**: Front- und Back-Matter bleiben unfoliated
 - **Hierarchie**: weight first, size second
 
