@@ -10,7 +10,6 @@ Pipeline: ein Markdown-File pro Jahr unter `content/books/{year}.md` → druckfe
 - `app/assets/css/main.css` – Tailwind `@theme` und `@utility` für Typo-Tokens
 - `app/components/` – Vue-Components mit Tailwind-Utilities (keine `<style>`-Blöcke)
 - `content/books/{year}.md` – Frontmatter + MDC-Content (`::poem`, `::epigraph`, `::page-break`)
-- `docs/adr/` – Architektur-Entscheidungen
 - `scripts/export.ts` – PDF-Export via Playwright
 
 ## Befehle

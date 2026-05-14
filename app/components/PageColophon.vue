@@ -10,7 +10,9 @@ defineProps<{
 </script>
 
 <template>
-  <section class="page-colophon text-meta">
+  <section
+    class="page-colophon flex flex-col min-h-(--text-block-height) text-meta"
+  >
     <div>
       <p class="stanza">
         {{ ordinal }} Privatdruck für den<br />
@@ -27,10 +29,10 @@ defineProps<{
         {{ copies }}
       </p>
     </div>
-    <div class="colophon-lower">
+    <div class="colophon-lower mt-auto">
       <p class="stanza">
         Gestaltung und Satz: Johann Schopplich<br />
-        Gesetzt in Sirba sowie Trola (Deckblatt)<br />
+        Gesetzt in Sirba sowie Trola<br />
         Gedruckt in der
         <img src="/logo-druckerei.svg" alt="" class="colophon-logo" /> Druckerei
         Oberreuter/Zeulenroda-Triebes<br />

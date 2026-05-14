@@ -9,15 +9,23 @@
   --font-serif: 'Sirba', ui-serif, serif;
   --font-display: 'Trola', ui-serif, serif;
 
+  /* Leading register – named values for the line-height system. Body is
+     above Bringhurst's loose corridor so poetry stanzas breathe; apparatus
+     follows the indices/bibliography convention. */
+  --leading-body: 1.5;
+  --leading-heading: 1.2;
+  --leading-apparatus: 1.35;
+
   /* Body register as atomic size tokens. Family, weight, and italic stay
      freely combinable – body can go italic, h3 picks up the heading size
-     in Trola Regular. */
+     in Trola Regular. The --xxx--line-height pairs auto-bind on the text-*
+     utilities. */
   --text-meta: 9.5pt;
   --text-body-small: 10pt;
   --text-body: 11pt;
-  --text-body--line-height: var(--body-line-height);
+  --text-body--line-height: var(--leading-body);
   --text-heading: 12pt;
-  --text-heading--line-height: 1.2;
+  --text-heading--line-height: var(--leading-heading);
 }
 
 /* Display composites bind family + size + leading per role. Weight stays

@@ -14,12 +14,9 @@
   --text-block-height: calc(
     var(--trim-h) - var(--top-margin) - var(--bottom-margin)
   );
-  /* Generous serif leading for 11pt Sirba humanist body – above Bringhurst's
-     "loose" book setting (1.27–1.36) so poetry stanzas breathe. */
-  --body-line-height: 1.5;
   /* Vertical rhythm unit – one body line (16.5pt ≈ 5.82mm). All vertical
      offsets derive from this so the layout snaps to a single grid. */
-  --baseline: calc(var(--text-body) * var(--body-line-height));
+  --baseline: calc(var(--text-body) * var(--leading-body));
   /* Stack gaps. p-gap is 0.75 baselines for prose density; h-gap is one full
      baseline – the canonical "skip a line" before a heading. */
   --p-gap: calc(var(--baseline) * 0.75);
@@ -34,7 +31,7 @@
   --title-work-offset: var(--baseline);
   /* Colophon has its own rhythm at meta size – stanza gap mirrors --p-gap's
      proportion at the local baseline. */
-  --colophon-p-gap: calc(var(--text-meta) * var(--body-line-height) * 0.75);
+  --colophon-p-gap: calc(var(--text-meta) * var(--leading-body) * 0.75);
 }
 
 /* Custom counter so we can start incrementing at Title and exclude
@@ -130,10 +127,6 @@
 
 .page-cover {
   page: cover;
-  width: var(--trim-w);
-  height: var(--trim-h);
-  position: relative;
-  overflow: hidden;
 }
 
 .page-blank {
@@ -168,13 +161,14 @@
 .page-colophon {
   page: colophon;
   break-before: page;
+  padding-top: var(--content-top-offset);
 }
 
 html,
 body {
   font-family: var(--font-serif);
   font-size: var(--text-body);
-  line-height: var(--body-line-height);
+  line-height: var(--leading-body);
   color: black;
   background: white;
 }
@@ -193,8 +187,8 @@ body {
 
 /* Vertical text strip flush to portrait-right, reading up the spine
    (head-tilt LEFT). `sideways-lr` runs inline bottom-to-top, so the
-   HTML-first author sits below the title. 30mm top inset echoes
-   --bottom-margin, the canon's largest band, as a visual anchor. */
+   HTML-first author sits below the title. Top inset echoes the canon's
+   largest band as a visual anchor. */
 .cover-canvas {
   position: absolute;
   inset: 0;
@@ -203,27 +197,13 @@ body {
   flex-direction: row;
   justify-content: flex-end;
   align-items: flex-end;
-  padding-top: 30mm;
+  padding-top: var(--bottom-margin);
   padding-right: 12mm;
   box-sizing: border-box;
 }
 
-.cover-author,
-.cover-title {
-  white-space: nowrap;
-}
-
 .cover-author {
   margin-inline-end: 2em;
-}
-
-/* min-height fills the flex column so margin-top:auto on the imprint
-   sticks to the bottom margin. */
-.page-title {
-  display: flex;
-  flex-direction: column;
-  min-height: var(--text-block-height);
-  text-align: right;
 }
 
 .title-author {
@@ -235,8 +215,7 @@ body {
 }
 
 .title-imprint {
-  margin-top: auto;
-  line-height: 1.3;
+  line-height: var(--leading-apparatus);
 }
 
 .body-content {
@@ -351,7 +330,7 @@ body {
   font-family: var(--font-display);
   font-weight: 600;
   font-size: var(--text-heading);
-  line-height: 1.2;
+  line-height: var(--leading-heading);
   margin-bottom: var(--h-gap);
 }
 
@@ -362,7 +341,7 @@ body {
   font-family: var(--font-display);
   font-weight: 400;
   font-size: var(--text-heading);
-  line-height: 1.2;
+  line-height: var(--leading-heading);
   margin-bottom: var(--p-gap);
 }
 
@@ -389,13 +368,11 @@ body {
 }
 
 .list-table {
-  width: 100%;
-  border-collapse: collapse;
   font-variant-numeric: lining-nums tabular-nums;
-  /* Apparatus leading – a publication list reads as a single dense unit,
-     not as spaced prose. 1.35 follows Bringhurst's convention for indices
-     and bibliographies. */
-  line-height: 1.35;
+  /* Apparatus register – a publication list reads as a single dense unit,
+     not as spaced prose. Bringhurst's convention for indices and
+     bibliographies. */
+  line-height: var(--leading-apparatus);
 }
 
 .list-table td {
@@ -425,21 +402,8 @@ body {
   font-size: var(--text-meta);
 }
 
-/* Flex column – upper stanzas sit below the ornament gap, lower stanzas
-   anchor to the bottom margin. */
-.page-colophon {
-  display: flex;
-  flex-direction: column;
-  min-height: var(--text-block-height);
-  padding-top: var(--content-top-offset);
-}
-
 .page-colophon .stanza {
   margin-bottom: var(--colophon-p-gap);
-}
-
-.colophon-lower {
-  margin-top: auto;
 }
 
 .colophon-lower .stanza:last-child {

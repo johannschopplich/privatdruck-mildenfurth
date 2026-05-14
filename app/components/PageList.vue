@@ -43,7 +43,7 @@ function parseSupplement(text: string): TitlePart[] {
   <section class="page-list">
     <div class="list-block">
       <p class="list-heading font-display font-semibold text-heading">Bisher erschienen:</p>
-      <table class="list-table">
+      <table class="list-table w-full border-collapse">
         <tbody>
           <tr
             v-for="publication in publications"
