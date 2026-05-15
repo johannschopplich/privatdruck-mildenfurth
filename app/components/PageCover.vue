@@ -10,7 +10,7 @@ defineProps<{
     class="page-cover relative h-(--trim-h) w-(--trim-w) overflow-hidden"
   >
     <div
-      class="absolute inset-0 box-border flex flex-row items-end justify-end pt-(--bottom-margin) pr-[12mm] [writing-mode:sideways-lr]"
+      class="absolute inset-0 box-border flex flex-row items-end justify-end pt-(--bottom-margin) pr-(--cover-edge) [writing-mode:sideways-lr]"
     >
       <p class="me-[2em] text-display-cover font-light whitespace-nowrap">
         {{ author }}

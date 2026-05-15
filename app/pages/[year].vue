@@ -23,10 +23,19 @@ const earlierPublications = previousPublications.filter(
   (publication) => publication.year < currentYear,
 )
 
-useHead({
-  title: `${fullAuthor} – ${book.value.title}`,
-  htmlAttrs: { lang: 'de' },
-})
+const AUTHOR_GENITIVE_BY_GENDER = {
+  m: 'des Autors',
+  f: 'der Autorin',
+  d: 'der lesenden Person',
+} as const
+
+const authorGenitive = AUTHOR_GENITIVE_BY_GENDER[book.value.authorGender]
+
+if (import.meta.server) {
+  useHead({
+    title: `${fullAuthor} – ${book.value.title}`,
+  })
+}
 </script>
 
 <template>
@@ -51,6 +60,7 @@ useHead({
       :reading-date="book.readingDate"
       :location="book.location"
       :author="fullAuthor"
+      :author-genitive="authorGenitive"
     />
   </article>
 </template>

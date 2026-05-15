@@ -9,6 +9,7 @@ export default defineContentConfig({
         year: z.number(),
         authorFirst: z.string(),
         authorLast: z.string(),
+        authorGender: z.enum(['m', 'f', 'd']),
         title: z.string(),
         subtitle: z.string().optional(),
         copies: z.number(),

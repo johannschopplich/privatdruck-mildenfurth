@@ -6,6 +6,7 @@ defineProps<{
   readingDate: string
   location: string
   author: string
+  authorGenitive: string
 }>()
 </script>
 
@@ -21,7 +22,7 @@ defineProps<{
       </p>
       <p>
         Erschienen in {{ copies }} Exemplaren<br />
-        zur Lesung der Autorin am {{ readingDate }}<br />
+        zur Lesung {{ authorGenitive }} am {{ readingDate }}<br />
         im {{ location }}.
       </p>
       <p>

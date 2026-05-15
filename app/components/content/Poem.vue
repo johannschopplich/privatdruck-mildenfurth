@@ -10,7 +10,7 @@ defineProps<{
   <div
     class="mb-[calc(var(--baseline)*1.5)] break-inside-avoid text-left hyphens-none last:mb-0"
   >
-    <p v-if="attribution" class="italic">{{ attribution }}</p>
+    <p v-if="attribution" class="text-meta">{{ attribution }}</p>
     <h2 v-if="title">{{ title }}</h2>
     <div class="poem-body">
       <slot />

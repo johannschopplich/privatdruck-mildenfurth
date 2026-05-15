@@ -7,6 +7,7 @@
   --bottom-margin: 30mm;
   --inner-margin: 18mm;
   --outer-margin: 26mm;
+  --cover-edge: 12mm;
   /* Derived – change the margins, not these. */
   --text-block-width: calc(
     var(--trim-w) - var(--inner-margin) - var(--outer-margin)
@@ -88,6 +89,9 @@
 
 @page title {
   counter-increment: book-folio;
+  @top-center {
+    content: none;
+  }
 }
 
 @page body {
@@ -109,8 +113,8 @@
   @bottom-right {
     content: counter(book-folio);
     font-family: var(--font-serif);
-    font-size: var(--text-body);
-    font-variant-numeric: lining-nums tabular-nums;
+    font-size: var(--text-meta);
+    font-variant-numeric: oldstyle-nums tabular-nums;
     vertical-align: middle;
   }
 }
@@ -119,8 +123,8 @@
   @bottom-left {
     content: counter(book-folio);
     font-family: var(--font-serif);
-    font-size: var(--text-body);
-    font-variant-numeric: lining-nums tabular-nums;
+    font-size: var(--text-meta);
+    font-variant-numeric: oldstyle-nums tabular-nums;
     vertical-align: middle;
   }
 }
@@ -190,6 +194,7 @@ body {
   text-align: justify;
   hyphens: auto;
   -webkit-hyphens: auto;
+  hanging-punctuation: first allow-end last;
   /* box-decoration-break: clone re-applies padding-top on each page fragment
      when prose flows across pages. */
   padding-top: var(--content-top-offset);
@@ -235,10 +240,7 @@ body {
    and poetry openings. */
 .body-content h1,
 .body-content h2 {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: var(--text-heading);
-  line-height: var(--leading-heading);
+  @apply text-display-heading;
   margin-bottom: var(--h-gap);
 }
 

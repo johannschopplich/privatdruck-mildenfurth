@@ -42,8 +42,8 @@ function parseSupplement(text: string): TitlePart[] {
 <template>
   <section class="page-list">
     <div>
-      <p class="mb-(--h-gap) font-display text-heading font-semibold">
-        Bisher erschienen:
+      <p class="mb-(--h-gap) text-display-heading">
+        Bisher erschienen
       </p>
       <table
         class="w-full border-collapse leading-apparatus lining-nums tabular-nums [&_td]:pb-[2pt] [&_td]:align-top"
@@ -53,10 +53,10 @@ function parseSupplement(text: string): TitlePart[] {
             v-for="publication in publications"
             :key="`${publication.year}-${publication.author}`"
           >
-            <td class="pe-[0.75em] tracking-tight whitespace-nowrap">
+            <td class="pe-[1.5em] tracking-tight whitespace-nowrap">
               {{ publication.year }}
             </td>
-            <td class="pe-[0.75em] whitespace-nowrap">
+            <td class="pe-[1.5em] whitespace-nowrap">
               {{ publication.author }}
             </td>
             <td>
