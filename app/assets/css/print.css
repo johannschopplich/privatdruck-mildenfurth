@@ -255,6 +255,6 @@ body {
 
 /* Title-block: heading drops its bottom gap when a subtitle follows, so
    title and subtitle read as one composition. */
-.body-content :is(h1, h2):has(+ .prose-subtitle) {
+.body-content :is(h1, h2):has(+ .deck) {
   margin-bottom: 0;
 }

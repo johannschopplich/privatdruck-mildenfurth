@@ -7,9 +7,9 @@ Pipeline: ein Markdown-File pro Jahr unter `content/books/{year}.md` → druckfe
 ## Wo was lebt
 
 - `app/assets/css/print.css` – Design-Tokens, `@page`-Rules, Baseline-Rhythmus, MDC-Descendant-Selektoren (z. B. `.body-content p`); per `layer(base)` importiert, damit Utilities reliable gewinnen
-- `app/assets/css/main.css` – Tailwind `@theme` und `@utility` für Typo-Tokens; neue `@utility` nur bei Wiederverwendung
+- `app/assets/css/main.css` – Tailwind `@theme` und `@utility` für Typo-Tokens
 - `app/components/` – Vue-Components mit Tailwind-Utilities (keine `<style>`-Blöcke); existierende CSS-Variablen direkt via arbitrary values (`mt-(--title-author-offset)`)
-- `content/books/{year}.md` – Frontmatter + MDC-Content (`::poem`, `::epigraph`, `::page-break`, `::note`, `::prose-subtitle`, `:::appendix`)
+- `content/books/{year}.md` – Frontmatter + MDC-Content (`::poem`, `::epigraph`, `::page-break`, `::note`, `::deck`, `:::aside`)
 - `scripts/export.ts` – PDF-Export via Playwright
 
 ## Befehle
