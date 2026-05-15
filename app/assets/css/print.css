@@ -156,6 +156,7 @@
 .page-list {
   page: list;
   break-before: page;
+  padding-top: var(--content-top-offset);
 }
 
 .page-colophon {
@@ -183,39 +184,6 @@ body {
     'kern' 1,
     'liga' 1,
     'onum' 1;
-}
-
-/* Vertical text strip flush to portrait-right, reading up the spine
-   (head-tilt LEFT). `sideways-lr` runs inline bottom-to-top, so the
-   HTML-first author sits below the title. Top inset echoes the canon's
-   largest band as a visual anchor. */
-.cover-canvas {
-  position: absolute;
-  inset: 0;
-  writing-mode: sideways-lr;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  align-items: flex-end;
-  padding-top: var(--bottom-margin);
-  padding-right: 12mm;
-  box-sizing: border-box;
-}
-
-.cover-author {
-  margin-inline-end: 2em;
-}
-
-.title-author {
-  margin-top: var(--title-author-offset);
-}
-
-.title-work {
-  margin-top: var(--title-work-offset);
-}
-
-.title-imprint {
-  line-height: var(--leading-apparatus);
 }
 
 .body-content {
@@ -246,29 +214,6 @@ body {
 
 /* pre-line on the body paragraphs preserves the per-line breaks so the
    markdown author writes verse line-for-line; each paragraph is one stanza. */
-.poem {
-  text-align: left;
-  hyphens: none;
-  -webkit-hyphens: none;
-  break-inside: avoid;
-  margin-bottom: calc(var(--baseline) * 1.5);
-}
-
-.poem:last-child {
-  margin-bottom: 0;
-}
-
-/* Italic attribution above a poem title – an incidental note, quieter
-   than the Trola title that follows. */
-.poem-attribution {
-  font-style: italic;
-  margin-bottom: calc(var(--baseline) * 0.25);
-}
-
-.poem-title {
-  margin-bottom: var(--h-gap);
-}
-
 .poem-body p {
   white-space: pre-line;
   margin-bottom: var(--p-gap);
@@ -281,45 +226,8 @@ body {
   margin-bottom: 0;
 }
 
-/* Date stamp – meta voice, shared with .list-note and the colophon for
-   one consistent metadata register. */
-.poem-date {
-  font-size: var(--text-meta);
-  margin-top: var(--p-gap);
-}
-
-/* Bibliographic note – italic marks it as metadata prose, not text. */
-.note {
-  font-size: var(--text-meta);
-  font-style: italic;
-  margin-top: var(--p-gap);
-}
-
-.epigraph {
-  /* Two baselines between epigraph and first prose – classical 'skip a line'. */
-  margin-bottom: calc(var(--baseline) * 2);
-  hyphens: none;
-}
-
-.epigraph[data-align='right'] {
-  text-align: right;
-}
-
-.epigraph .quote {
-  margin-bottom: 6pt;
-  hyphens: none;
-}
-
-.epigraph .quote > p {
+.quote > p {
   margin: 0;
-}
-
-.epigraph .attribution {
-  margin: 0;
-}
-
-.epigraph .attribution cite {
-  font-style: italic;
 }
 
 /* Top-level headings (poem titles, h2 in prose). Trola Semibold +1pt over
@@ -345,86 +253,8 @@ body {
   margin-bottom: var(--p-gap);
 }
 
-.prose-subtitle {
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-size: var(--text-body);
-  line-height: var(--leading-heading);
-  margin-bottom: var(--h-gap);
-}
-
 /* Title-block: heading drops its bottom gap when a subtitle follows, so
    title and subtitle read as one composition. */
 .body-content :is(h1, h2):has(+ .prose-subtitle) {
   margin-bottom: 0;
-}
-
-/* Steps the whole block down to text-body-small for sustained prose
-   that reads as subordinate to the main poetry. */
-.appendix {
-  font-size: var(--text-body-small);
-}
-
-.page-list {
-  padding-top: var(--content-top-offset);
-}
-
-.list-heading {
-  margin-bottom: var(--h-gap);
-}
-
-.list-table {
-  font-variant-numeric: lining-nums tabular-nums;
-  /* Apparatus register – a publication list reads as a single dense unit,
-     not as spaced prose. Bringhurst's convention for indices and
-     bibliographies. */
-  line-height: var(--leading-apparatus);
-}
-
-.list-table td {
-  vertical-align: top;
-  padding-bottom: 2pt;
-}
-
-.list-year {
-  white-space: nowrap;
-  padding-inline-end: 0.75em;
-  letter-spacing: -0.025em;
-}
-
-.list-author {
-  white-space: nowrap;
-  padding-inline-end: 0.75em;
-}
-
-/* Work titles italic, apparatus prose roman (Bringhurst convention). */
-.list-title cite {
-  font-style: italic;
-}
-
-/* Qualifier text under a publication ("Lesung ausgefallen") – meta voice
-   so it doesn't compete with the italic title. */
-.list-note {
-  font-size: var(--text-meta);
-}
-
-.page-colophon .stanza {
-  margin-bottom: var(--colophon-p-gap);
-}
-
-.colophon-lower .stanza:last-child {
-  margin-bottom: 0;
-}
-
-.colophon-logo {
-  display: inline-block;
-  height: 1.4em;
-  width: auto;
-  vertical-align: middle;
-  margin-left: 0.275em;
-}
-
-.copy-number-blank {
-  display: inline-block;
-  width: 3.5em;
 }

@@ -7,13 +7,16 @@ defineProps<{
 </script>
 
 <template>
-  <div class="epigraph" :data-align="align">
-    <blockquote class="quote">
+  <div
+    class="mb-[calc(var(--baseline)*2)] hyphens-none"
+    :class="[align === 'right' && 'text-right']"
+  >
+    <blockquote class="quote mb-[6pt] hyphens-none">
       <slot />
     </blockquote>
-    <p class="attribution">
+    <p class="m-0">
       {{ authorName }},
-      <cite>{{ work }}</cite>
+      <cite class="italic">{{ work }}</cite>
     </p>
   </div>
 </template>

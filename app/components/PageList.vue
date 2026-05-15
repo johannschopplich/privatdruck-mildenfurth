@@ -41,28 +41,37 @@ function parseSupplement(text: string): TitlePart[] {
 
 <template>
   <section class="page-list">
-    <div class="list-block">
-      <p class="list-heading font-display font-semibold text-heading">Bisher erschienen:</p>
-      <table class="list-table w-full border-collapse">
+    <div>
+      <p class="mb-(--h-gap) font-display text-heading font-semibold">
+        Bisher erschienen:
+      </p>
+      <table
+        class="w-full border-collapse leading-apparatus lining-nums tabular-nums [&_td]:pb-[2pt] [&_td]:align-top"
+      >
         <tbody>
           <tr
             v-for="publication in publications"
             :key="`${publication.year}-${publication.author}`"
           >
-            <td class="list-year">{{ publication.year }}</td>
-            <td class="list-author">{{ publication.author }}</td>
-            <td class="list-title">
+            <td class="pe-[0.75em] tracking-tight whitespace-nowrap">
+              {{ publication.year }}
+            </td>
+            <td class="pe-[0.75em] whitespace-nowrap">
+              {{ publication.author }}
+            </td>
+            <td>
               <div>
                 <!-- eslint-disable vue/multiline-html-element-content-newline -->
                 <component
                   :is="part.kind === 'title' ? 'cite' : 'span'"
                   v-for="(part, index) in renderTitle(publication)"
                   :key="index"
+                  :class="part.kind === 'title' ? 'italic' : undefined"
                   >{{ part.value }}</component
                 >
                 <!-- eslint-enable vue/multiline-html-element-content-newline -->
               </div>
-              <div v-if="publication.note" class="list-note">
+              <div v-if="publication.note" class="text-meta">
                 ({{ publication.note }})
               </div>
             </td>

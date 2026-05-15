@@ -1,6 +1,6 @@
 @import 'tailwindcss';
 @import './fonts.css';
-@import './print.css';
+@import './print.css' layer(base);
 
 @source '../../../content/**/*';
 

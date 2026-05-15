@@ -9,15 +9,15 @@ defineProps<{
 
 <template>
   <section
-    class="page-title flex flex-col text-right min-h-(--text-block-height)"
+    class="page-title flex min-h-(--text-block-height) flex-col text-right"
   >
-    <h1 class="title-author text-display-author font-bold">
+    <h1 class="mt-(--title-author-offset) text-display-author font-bold">
       {{ authorFirst }}<br />{{ authorLast }}
     </h1>
-    <p class="title-work text-display-work">
+    <p class="mt-(--title-work-offset) text-display-work">
       {{ title }}
     </p>
-    <div class="title-imprint mt-auto">
+    <div class="mt-auto leading-apparatus">
       <p>Privatdruck</p>
       <p>Kloster Mildenfurth</p>
       <p>{{ roman }}</p>
