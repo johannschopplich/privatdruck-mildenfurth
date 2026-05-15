@@ -17,7 +17,7 @@ defineProps<{
     <p class="mt-(--title-work-offset) text-display-work">
       {{ title }}
     </p>
-    <div class="mt-auto text-meta leading-apparatus tracking-widest uppercase">
+    <div class="mt-auto text-meta leading-apparatus tracking-wider uppercase">
       <div class="inline-block">
         <hr
           class="w-full border-x-0 border-t-[0.5pt] border-b-0 border-black"
