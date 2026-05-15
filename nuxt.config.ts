@@ -5,6 +5,12 @@ export default defineNuxtConfig({
 
   compatibilityDate: '2026-01-01',
 
+  content: {
+    experimental: {
+      sqliteConnector: 'native',
+    },
+  },
+
   nitro: {
     prerender: {
       routes: ['/2025', '/2026'],
