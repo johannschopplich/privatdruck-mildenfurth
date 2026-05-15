@@ -9,28 +9,26 @@
   --font-serif: 'Sirba', ui-serif, serif;
   --font-display: 'Trola', ui-serif, serif;
 
-  /* Leading register – named values for the line-height system. Body is
-     above Bringhurst's loose corridor so poetry stanzas breathe; apparatus
-     follows the indices/bibliography convention. */
   --leading-body: 1.5;
   --leading-heading: 1.2;
   --leading-apparatus: 1.35;
 
-  /* Body register as atomic size tokens. Family, weight, and italic stay
-     freely combinable – body can go italic, h3 picks up the heading size
-     in Trola Regular. The --xxx--line-height pairs auto-bind on the text-*
-     utilities. */
   --text-meta: 9.5pt;
   --text-body-small: 10pt;
   --text-body: 11pt;
   --text-body--line-height: var(--leading-body);
   --text-heading: 12pt;
   --text-heading--line-height: var(--leading-heading);
+
+  --color-og-wrapper: oklch(64% 0.04 55);
+  --color-og-paper: oklch(94.8% 0.0085 78);
+  --color-og-ink: oklch(14% 0.005 55);
+
+  --shadow-og-inset:
+    inset 1px 0 0 rgb(0 0 0 / 0.05), -1px 0 0 rgb(0 0 0 / 0.12),
+    -6px 0 14px rgb(0 0 0 / 0.12);
 }
 
-/* Display composites bind family + size + leading per role. Weight stays
-   separate because cover-author (Light) and cover-title (Bold) share the
-   cover display role at different weights. */
 @utility text-display-cover {
   font-family: var(--font-display);
   font-size: 15pt;
@@ -56,7 +54,7 @@
   font-weight: 600;
 }
 
-/* Unlayered – inline mb-/mt- utilities (utilities layer) would otherwise win. */
+/* Unlayered – inline `mb-`/`mt-` utilities would otherwise win. */
 .poem:has(+ .source-note) {
   margin-bottom: var(--h-gap);
 }

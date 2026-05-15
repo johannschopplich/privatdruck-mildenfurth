@@ -42,9 +42,7 @@ function parseSupplement(text: string): TitlePart[] {
 <template>
   <section class="page-list">
     <div>
-      <p class="mb-(--h-gap) text-display-heading">
-        Bisher erschienen
-      </p>
+      <p class="mb-(--h-gap) text-display-heading">Bisher erschienen</p>
       <table
         class="w-full border-collapse leading-apparatus lining-nums tabular-nums [&_td]:pb-[2pt] [&_td]:align-top"
       >

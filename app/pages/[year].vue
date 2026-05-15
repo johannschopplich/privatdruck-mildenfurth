@@ -12,7 +12,7 @@ const { data: book } = await useAsyncData(`book-${year}`, () =>
 if (!book.value) {
   throw createError({
     statusCode: 404,
-    statusMessage: `Book ${year} not found`,
+    message: `Book ${year} not found`,
     fatal: true,
   })
 }

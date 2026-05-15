@@ -8,6 +8,7 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "export": "nuxt generate --logLevel silent && node scripts/export.ts",
+    "og": "nuxt generate --logLevel silent && node scripts/og.ts",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier \"**/*.{css,html,json,md,mjs,ts,vue,yml}\" --write",

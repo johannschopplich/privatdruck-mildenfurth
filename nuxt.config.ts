@@ -3,6 +3,8 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineNuxtConfig({
   modules: ['@nuxt/content'],
 
+  css: ['~/assets/css/main.css'],
+
   compatibilityDate: '2026-01-01',
 
   content: {
@@ -13,7 +15,7 @@ export default defineNuxtConfig({
 
   nitro: {
     prerender: {
-      routes: ['/2025', '/2026'],
+      routes: ['/2025', '/2026', '/og'],
       crawlLinks: false,
     },
   },
@@ -26,6 +28,8 @@ export default defineNuxtConfig({
     'prepare:types': ({ nodeTsConfig }) => {
       nodeTsConfig.include ||= []
       nodeTsConfig.include.push('../scripts/**/*')
+      nodeTsConfig.compilerOptions ||= {}
+      nodeTsConfig.compilerOptions.allowImportingTsExtensions = true
     },
   },
 })
