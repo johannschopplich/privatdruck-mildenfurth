@@ -18,10 +18,13 @@
   /* Vertical rhythm unit – one body line (16.5pt ≈ 5.82mm). All vertical
      offsets derive from this so the layout snaps to a single grid. */
   --baseline: calc(var(--text-body) * var(--leading-body));
-  /* Stack gaps. p-gap is 0.75 baselines for prose density; h-gap is one full
-     baseline – the canonical "skip a line" before a heading. */
+  /* Stack gaps – four ascending tiers. p-gap (intra-paragraph), h-gap
+     ("skip a line"), gap-stanza (poem ↔ poem), gap-section (epigraph
+     opens a section). */
   --p-gap: calc(var(--baseline) * 0.75);
   --h-gap: var(--baseline);
+  --gap-stanza: calc(var(--baseline) * 1.5);
+  --gap-section: calc(var(--baseline) * 2);
   /* Gap from ornament rule to first line of content – same on body, list,
      and colophon. */
   --content-top-offset: calc(var(--baseline) * 1.5);

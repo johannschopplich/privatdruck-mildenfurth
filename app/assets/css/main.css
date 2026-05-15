@@ -55,3 +55,12 @@
   line-height: var(--leading-heading);
   font-weight: 600;
 }
+
+/* Unlayered – inline mb-/mt- utilities (utilities layer) would otherwise win. */
+.poem:has(+ .source-note) {
+  margin-bottom: var(--h-gap);
+}
+
+.poem + .source-note {
+  margin-top: 0;
+}

@@ -8,7 +8,7 @@ defineProps<{
 
 <template>
   <div
-    class="mb-[calc(var(--baseline)*1.5)] break-inside-avoid text-left hyphens-none last:mb-0"
+    class="poem mb-(--gap-stanza) last:mb-0 break-inside-avoid text-left hyphens-none"
   >
     <p v-if="attribution" class="text-meta">{{ attribution }}</p>
     <h2 v-if="title">{{ title }}</h2>

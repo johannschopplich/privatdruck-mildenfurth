@@ -8,7 +8,7 @@ defineProps<{
 
 <template>
   <div
-    class="mb-[calc(var(--baseline)*2)] hyphens-none"
+    class="epigraph mb-(--gap-section) hyphens-none"
     :class="[align === 'right' && 'text-right']"
   >
     <blockquote class="quote mb-[6pt] hyphens-none">
