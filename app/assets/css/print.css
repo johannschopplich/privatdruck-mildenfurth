@@ -345,12 +345,18 @@ body {
   margin-bottom: var(--p-gap);
 }
 
-/* Italic subtitle below an h2 – quietly extends the title without
-   competing with the Trola heading. */
 .prose-subtitle {
-  font-style: italic;
-  margin-top: calc(var(--baseline) * -0.5);
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--text-body);
+  line-height: var(--leading-heading);
   margin-bottom: var(--h-gap);
+}
+
+/* Title-block: heading drops its bottom gap when a subtitle follows, so
+   title and subtitle read as one composition. */
+.body-content :is(h1, h2):has(+ .prose-subtitle) {
+  margin-bottom: 0;
 }
 
 /* Steps the whole block down to text-body-small for sustained prose
