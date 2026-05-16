@@ -28,35 +28,33 @@ if (import.meta.server) {
 <template>
   <div class="h-[630px] w-[1200px]">
     <div
-      class="og-canvas relative flex h-[630px] w-[1200px] overflow-hidden bg-og-wrapper font-serif text-og-ink before:pointer-events-none before:absolute before:inset-0 before:z-[1] before:bg-[url(/og-grain.svg)] before:opacity-[0.55] before:mix-blend-multiply before:content-['']"
+      class="og-canvas relative flex h-[630px] w-[1200px] overflow-hidden bg-og-wrapper font-serif text-og-ink before:pointer-events-none before:absolute before:inset-0 before:z-1 before:bg-[url(/og-grain.svg)] before:opacity-55 before:mix-blend-multiply before:content-['']"
     >
       <div class="relative z-2 grid flex-1 place-items-center p-16">
         <div class="text-center">
-          <p class="font-display text-[26pt]/[1.25] tracking-[0.005em]">
-            Privatdruck
-          </p>
-          <p class="font-display text-[26pt]/[1.25] tracking-[0.005em]">
-            Kloster Mildenfurth
-          </p>
-          <hr
-            class="mx-auto mt-[18px] mb-[12px] w-16 border-0 border-t-[0.75pt] border-current opacity-85"
-          />
-          <p
-            class="font-display text-[13pt] leading-none tracking-[0.15em] uppercase [font-variant-numeric:oldstyle-nums]"
-          >
-            {{ yearRoman }}
-          </p>
+          <p class="font-display text-4xl/tight">Privatdruck</p>
+          <p class="font-display text-4xl/tight">Kloster Mildenfurth</p>
+          <div class="mx-auto mt-5 w-max">
+            <hr
+              class="border-x-0 border-t border-b-0 border-current opacity-85"
+            />
+            <p
+              class="mt-3 font-display leading-none tracking-widest uppercase oldstyle-nums"
+            >
+              {{ yearRoman }}
+            </p>
+          </div>
         </div>
       </div>
 
       <div
-        class="relative z-3 grid w-20 [place-items:end_center] bg-og-paper py-9 shadow-og-inset"
+        class="relative z-3 grid w-20 items-end justify-items-center bg-og-paper py-9 shadow-og-inset"
       >
         <div
-          class="flex flex-row items-center font-display leading-none whitespace-nowrap text-og-ink [writing-mode:sideways-lr]"
+          class="flex items-center font-display leading-none whitespace-nowrap text-og-ink [writing-mode:sideways-lr]"
         >
-          <p class="me-[1.6em] text-[18pt] font-light">{{ fullAuthor }}</p>
-          <h1 class="text-[18pt] font-bold">{{ data!.title }}</h1>
+          <p class="me-[1.6em] text-2xl font-light">{{ fullAuthor }}</p>
+          <h1 class="text-2xl font-bold">{{ data!.title }}</h1>
         </div>
       </div>
     </div>

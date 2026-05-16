@@ -20,7 +20,7 @@
   --text-heading: 12pt;
   --text-heading--line-height: var(--leading-heading);
 
-  --color-og-wrapper: oklch(64% 0.04 55);
+  --color-og-wrapper: oklch(75% 0.06 40);
   --color-og-paper: oklch(94.8% 0.0085 78);
   --color-og-ink: oklch(14% 0.005 55);
 
