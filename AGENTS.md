@@ -1,23 +1,23 @@
 # AGENTS.md
 
-Privatdruck-Reihe für den Arbeitskreis Kunst und Kultur am Kloster Mildenfurth – jährlich ein Band, kleine Auflage, satztypografisch hochwertig nach Bringhurst (_The Elements of Typographic Style_).
+Private-printing series for the Arbeitskreis Kunst und Kultur am Kloster Mildenfurth – one volume per year, small edition, fine typography, Bringhurst-style.
 
-Pipeline: ein Markdown-File pro Jahr unter `content/books/{year}.md` → druckfertiges PDF unter `exports/{year}.pdf`. Stack: Nuxt 4 + @nuxt/content + Tailwind v4 + CSS Paged Media; PDF-Rendering via Playwright/Chromium.
+Pipeline: one markdown file per year under `content/books/{year}.md` → print-ready PDF under `exports/{year}.pdf`. Stack: Nuxt 4 + @nuxt/content + Tailwind v4 + CSS Paged Media; PDF rendering via Playwright/Chromium.
 
-## Wo was lebt
+## Layout
 
-- `app/assets/css/print.css` – Design-Tokens, `@page`-Rules, Baseline-Rhythmus, MDC-Descendant-Selektoren (z. B. `.body-content p`); per `layer(base)` importiert, damit Utilities reliable gewinnen
-- `app/assets/css/main.css` – Tailwind `@theme` und `@utility` für Typo-Tokens
-- `app/components/` – Vue-Components mit Tailwind-Utilities (keine `<style>`-Blöcke); existierende CSS-Variablen direkt via arbitrary values (`mt-(--title-author-offset)`)
-- `content/books/{year}.md` – Frontmatter + MDC-Content (`::poem`, `::epigraph`, `::page-break`, `::note`, `::deck`, `:::aside`)
-- `scripts/export.ts` – PDF-Export via Playwright
+- `app/assets/css/print.css` – design tokens, `@page` rules, baseline rhythm, MDC descendant selectors (e.g. `.body-content p`); imported via `layer(base)` so utilities reliably win
+- `app/assets/css/main.css` – Tailwind `@theme` and `@utility` for typography tokens
+- `app/components/` – Vue components with Tailwind utilities (no `<style>` blocks); existing CSS variables directly via arbitrary values (`mt-(--title-author-offset)`)
+- `content/books/{year}.md` – frontmatter + MDC content (`::poem`, `::epigraph`, `::page-break`, `::note`, `::deck`, `:::aside`)
+- `scripts/export.ts` – PDF export via Playwright
 
-## Befehle
+## Commands
 
 ```bash
-pnpm dev              # Dev-Server
-pnpm generate         # Statisches Build → .output/public/
-pnpm export [year]    # PDF erzeugen (Default: neuestes Jahr)
-pnpm test:types       # vue-tsc Typecheck
+pnpm dev              # dev server
+pnpm generate         # static build → .output/public/
+pnpm export [year]    # render PDF (default: latest year)
+pnpm test:types       # vue-tsc typecheck
 pnpm lint             # ESLint
 ```
