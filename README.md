@@ -10,7 +10,7 @@ Since 2003 the circle has published one slim volume of contemporary German poetr
 
 I took over the typesetting from a Word-based layout in 2026 and rebuilt production around the stack below. The constraint is Bringhurst's _Elements of Typographic Style_; every choice the book makes has a reason on a page somewhere.
 
-## Typographic principles
+## Typographic Principles
 
 - **Fonts** – Sirba (body), Trola (display)
 - **Page** – modified Tschichold canon; inner < top < outer < bottom
@@ -21,7 +21,7 @@ I took over the typesetting from a Word-based layout in 2026 and rebuilt product
 - **Apparatus** – source notes set close under their poem
 - **Folios** – book block counted from the title page
 
-## How it's built
+## How It's Built
 
 - [Nuxt 4](https://nuxt.com) + [@nuxt/content](https://content.nuxt.com) – markdown → routes
 - [Tailwind v4](https://tailwindcss.com) – design tokens, utility classes
@@ -34,30 +34,21 @@ pnpm dev              # preview in the browser
 pnpm export [year]    # render exports/<year>.pdf (default: newest year)
 ```
 
-## Yearly workflow
+## Yearly Workflow
 
 One file per year under `content/books/{year}.md`. Frontmatter for metadata, MDC components for the body:
 
 ```markdown
 ---
 year: 2026
-authorFirst: Michael
-authorLast: Wüstefeld
-authorGender: m
+author: Michael Wüstefeld
 title: Schattenwurf
-copies: 50
-editor: Sebastian Schopplich
-sequenceOrdinal: Zwanzigster
 ---
 
 ::poem{title="Altes Lied" date="1985"}
 Wer spricht hier von Gestern
 Dreht sich sehnsüchtig um
 …
-::
-
-::note
-(Erstveröffentlichung: …)
 ::
 ```
 
