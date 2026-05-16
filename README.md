@@ -54,14 +54,14 @@ Dreht sich sehnsüchtig um
 
 `pnpm export 2026` renders the book to `exports/2026.pdf`. That's the whole pipeline.
 
-A runnable demonstration ships in `content/books/1914.md` — a small selection from Georg Trakl's _Sebastian im Traum_ (public domain). Run `pnpm dev` or `pnpm export 1914` to see the typography system in action without needing the private content repository.
+A runnable demonstration ships in `content/books/1914.md` – a small selection from Georg Trakl's _Sebastian im Traum_ (public domain). Run `pnpm dev` or `pnpm export 1914` to see the typography system in action.
 
 ## Content & Copyright
 
-The actual yearly volumes contain contemporary German poetry under copyright of the respective authors. The poems are licensed for the numbered private printing only and are **not** part of this repository – they live in a private companion repo and are pulled in via gitignored symlinks at `content/books/{year}.md` and `exports/{year}.pdf`. This repository contains the typesetting system; the only poetry committed here is the Trakl example.
+Each yearly volume sets poems by a contemporary German poet; the rights cover only the numbered private printing, not online redistribution. The Markdown sources and PDFs live in a private companion repository and are reached via gitignored symlinks at `content/books/{year}.md` and `exports/{year}.pdf`. Only the public-domain Trakl example is committed here.
 
 ## License
 
 [MIT](./LICENSE) License © 2026-PRESENT [Johann Schopplich](https://github.com/johannschopplich)
 
-The MIT license applies to the code and typography system in this repository. It does **not** apply to any poetry rendered through it — those texts remain the copyright of their respective authors.
+MIT covers the code and typography system, not the poetry rendered through it; those texts remain the copyright of their respective authors.
