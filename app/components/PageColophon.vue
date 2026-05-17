@@ -32,10 +32,8 @@ defineSlots<{
       <p>
         Dieses Exemplar trägt die Nummer:<span
           class="inline-block w-[3.5em]"
-        />/
-        {{ copies }}
+        />/ {{ copies }}.
       </p>
-      <slot name="note" />
     </div>
     <div class="mt-auto space-y-(--colophon-p-gap)">
       <p>
@@ -47,11 +45,12 @@ defineSlots<{
           alt=""
           class="ml-[0.275em] inline-block h-[1.4em] w-auto align-middle"
         />
-        Druckerei Oberreuter/Zeulenroda-Triebes<br />
+        Druckerei Oberreuter, Zeulenroda-Triebes<br />
         auf Geese Papier ALSTER 150 bläulichweiß der Firma<br />
         Ernst A. Geese GmbH, Henstedt-Ulzburg.<br />
         Hergestellt im Eigenverlag.
       </p>
+      <slot name="note" />
       <p>
         Erstausgabe<br />
         © {{ author }}
