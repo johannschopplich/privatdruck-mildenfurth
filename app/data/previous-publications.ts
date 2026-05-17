@@ -56,7 +56,7 @@ export const previousPublications: Publication[] = [
   { year: 2023, author: 'Thilo Krause', title: 'Streunen' },
   {
     year: 2024,
-    author: 'Christian Lehner',
+    author: 'Christian Lehnert',
     title: 'Augenblick am kristallinen Meer',
   },
   {
