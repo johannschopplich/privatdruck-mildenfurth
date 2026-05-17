@@ -58,7 +58,7 @@ function parseSupplement(text: string): TitlePart[] {
               {{ publication.author }}
             </td>
             <td>
-              <div>
+              <div class="whitespace-pre-line">
                 <!-- eslint-disable vue/multiline-html-element-content-newline -->
                 <component
                   :is="part.kind === 'title' ? 'cite' : 'span'"

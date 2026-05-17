@@ -8,6 +8,10 @@ defineProps<{
   author: string
   authorGenitive: string
 }>()
+
+defineSlots<{
+  note: () => any
+}>()
 </script>
 
 <template>
@@ -31,6 +35,7 @@ defineProps<{
         />/
         {{ copies }}
       </p>
+      <slot name="note" />
     </div>
     <div class="mt-auto space-y-(--colophon-p-gap)">
       <p>

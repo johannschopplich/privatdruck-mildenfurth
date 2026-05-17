@@ -61,6 +61,10 @@ if (import.meta.server) {
       :location="book.location"
       :author="fullAuthor"
       :author-genitive="authorGenitive"
-    />
+    >
+      <template v-if="book.colophonNote" #note>
+        <MDC :value="book.colophonNote" tag="p" unwrap="p" />
+      </template>
+    </PageColophon>
   </article>
 </template>

@@ -46,7 +46,7 @@ export const previousPublications: Publication[] = [
     year: 2016,
     author: 'André Schinkel',
     title: 'Hasenberg. Vier Gedichte',
-    supplement: 'erweitert um den Einleger *Als ich dich im Traum sah*',
+    supplement: 'erweitert um den Einleger\n*Als ich dich im Traum sah*',
   },
   { year: 2017, author: 'Jan Volker Röhnert', title: 'Die Bienenfresser' },
   { year: 2018, author: 'Michael Krüger', title: 'Mein Europa' },
@@ -62,6 +62,6 @@ export const previousPublications: Publication[] = [
   {
     year: 2025,
     author: 'Romina Nikolić',
-    title: 'Litanei der Leichtigkeit, in der du—',
+    title: 'Litanei der Leichtigkeit',
   },
 ]

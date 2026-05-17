@@ -17,6 +17,7 @@ export default defineContentConfig({
         location: z.string(),
         editor: z.string(),
         sequenceOrdinal: z.string(),
+        colophonNote: z.string().optional(),
       }),
     }),
   },
