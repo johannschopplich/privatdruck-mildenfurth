@@ -1,4 +1,8 @@
+import * as fsp from 'node:fs/promises'
+import { basename, resolve } from 'node:path'
 import tailwindcss from '@tailwindcss/vite'
+
+const booksDir = resolve(import.meta.dirname, 'content/books')
 
 export default defineNuxtConfig({
   modules: ['@nuxt/content'],
@@ -15,7 +19,7 @@ export default defineNuxtConfig({
 
   nitro: {
     prerender: {
-      routes: ['/2025', '/2026', '/og'],
+      routes: ['/og'],
       crawlLinks: false,
     },
   },
@@ -25,6 +29,19 @@ export default defineNuxtConfig({
   },
 
   hooks: {
+    'prerender:routes': async function (ctx) {
+      const entries = await fsp.readdir(booksDir)
+      for (const name of entries) {
+        if (!/^\d{4}\.md$/.test(name)) continue
+        // Skip dangling symlinks
+        try {
+          await fsp.access(resolve(booksDir, name))
+        } catch {
+          continue
+        }
+        ctx.routes.add(`/${basename(name, '.md')}`)
+      }
+    },
     'prepare:types': ({ nodeTsConfig }) => {
       nodeTsConfig.include ||= []
       nodeTsConfig.include.push('../scripts/**/*')

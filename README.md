@@ -2,7 +2,7 @@
 
 # Privatdruck Mildenfurth
 
-Annual private printing of contemporary German poetry for the Arbeitskreis Kunst und Kultur am Kloster Mildenfurth – the arts-and-culture circle at a former Thuringian monastery. One markdown file per year, one PDF out.
+Annual private printing of contemporary German poetry for the Arbeitskreis Kunst und Kultur am Kloster Mildenfurth – the arts-and-culture circle at a former Thuringian monastery. One Markdown file per year, one PDF out.
 
 ## Why
 
@@ -23,7 +23,7 @@ I took over the typesetting from a Word-based layout in 2026 and rebuilt product
 
 ## How It's Built
 
-- [Nuxt 4](https://nuxt.com) + [@nuxt/content](https://content.nuxt.com) – markdown → routes
+- [Nuxt 4](https://nuxt.com) + [@nuxt/content](https://content.nuxt.com) – Markdown → routes
 - [Tailwind v4](https://tailwindcss.com) – design tokens, utility classes
 - [CSS Paged Media](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_paged_media) – `@page` rules, folio positioning, custom counters
 - [Playwright](https://playwright.dev) – Chromium headless, prints the route to PDF
@@ -41,8 +41,15 @@ One file per year under `content/books/{year}.md`. Frontmatter for metadata, MDC
 ```markdown
 ---
 year: 2026
-author: Michael Wüstefeld
+authorFirst: Michael
+authorLast: Wüstefeld
+authorGender: m
 title: Schattenwurf
+copies: 50
+readingDate: 30. August 2026
+location: Kloster Mildenfurth bei Weida
+editor: Sebastian Schopplich
+sequenceOrdinal: Zwanzigster
 ---
 
 ::poem{title="Altes Lied" date="1985"}

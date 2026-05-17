@@ -1,8 +1,10 @@
 # AGENTS.md
 
-Private-printing series for the Arbeitskreis Kunst und Kultur am Kloster Mildenfurth – one volume per year, small edition, fine typography, Bringhurst-style.
+Private-printing series for the Arbeitskreis Kunst und Kultur am Kloster Mildenfurth – one volume per year, Bringhurst-style.
 
-Pipeline: one markdown file per year under `content/books/{year}.md` → print-ready PDF under `exports/{year}.pdf`. Stack: Nuxt 4 + @nuxt/content + Tailwind v4 + CSS Paged Media; PDF rendering via Playwright/Chromium.
+Pipeline: one Markdown file per year under `content/books/{year}.md` → print-ready PDF under `exports/{year}.pdf`. Stack: Nuxt 4 + @nuxt/content + Tailwind v4 + CSS Paged Media.
+
+The yearly volumes contain copyrighted poetry and live in the sibling private repo `../privatdruck-mildenfurth-content/`.
 
 ## Layout
 
