@@ -50,11 +50,11 @@ defineSlots<{
         Ernst A. Geese GmbH, Henstedt-Ulzburg.<br />
         Hergestellt im Eigenverlag.
       </p>
-      <slot name="note" />
       <p>
         Erstausgabe<br />
         © {{ author }}
       </p>
+      <slot name="note" />
     </div>
   </section>
 </template>

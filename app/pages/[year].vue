@@ -63,7 +63,11 @@ if (import.meta.server) {
       :author-genitive="authorGenitive"
     >
       <template v-if="book.colophonNote" #note>
-        <MDC :value="book.colophonNote" tag="p" unwrap="p" />
+        <MDC
+          :value="book.colophonNote"
+          tag="div"
+          class="space-y-(--colophon-p-gap)"
+        />
       </template>
     </PageColophon>
   </article>

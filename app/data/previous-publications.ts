@@ -46,7 +46,7 @@ export const previousPublications: Publication[] = [
     year: 2016,
     author: 'André Schinkel',
     title: 'Hasenberg. Vier Gedichte',
-    supplement: 'erweitert um den Einleger\n*Als ich dich im Traum sah*',
+    supplement: '\nerweitert um den Einleger\n*Als ich dich im Traum sah*',
   },
   { year: 2017, author: 'Jan Volker Röhnert', title: 'Die Bienenfresser' },
   { year: 2018, author: 'Michael Krüger', title: 'Mein Europa' },
