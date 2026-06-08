@@ -97,6 +97,20 @@
   }
 }
 
+@page frontispiece {
+  counter-increment: book-folio;
+  @top-center {
+    content: none;
+  }
+}
+
+@page blank-frontispiece-verso {
+  counter-increment: book-folio;
+  @top-center {
+    content: none;
+  }
+}
+
 @page body {
   counter-increment: book-folio;
 }
@@ -132,6 +146,33 @@
   }
 }
 
+/* Run a page long: deeper text block so one page keeps its tail – e.g. a poem
+   holding its trailing date. Opt in with `.page-long`. */
+@page long {
+  counter-increment: book-folio;
+  margin-bottom: 18mm;
+}
+
+@page long:right {
+  @bottom-right {
+    content: counter(book-folio);
+    font-family: var(--font-serif);
+    font-size: var(--text-meta);
+    font-variant-numeric: oldstyle-nums tabular-nums;
+    vertical-align: middle;
+  }
+}
+
+@page long:left {
+  @bottom-left {
+    content: counter(book-folio);
+    font-family: var(--font-serif);
+    font-size: var(--text-meta);
+    font-variant-numeric: oldstyle-nums tabular-nums;
+    vertical-align: middle;
+  }
+}
+
 .page-cover {
   page: cover;
 }
@@ -150,13 +191,28 @@
   page: blank-title-verso;
 }
 
+.page-blank-frontispiece-verso {
+  page: blank-frontispiece-verso;
+}
+
 .page-title {
   page: title;
   break-before: page;
 }
 
+.page-frontispiece {
+  page: frontispiece;
+  break-before: page;
+}
+
 .page-body {
   page: body;
+  break-before: page;
+}
+
+/* Opt a block onto a long page (see above). */
+.page-long {
+  page: long;
   break-before: page;
 }
 

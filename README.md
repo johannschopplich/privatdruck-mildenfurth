@@ -65,7 +65,7 @@ A runnable demonstration ships in `content/books/1914.md` – a small selection 
 
 ## Content & Copyright
 
-Each yearly volume sets poems by a contemporary German poet; the rights cover only the numbered private printing, not online redistribution. The Markdown sources and PDFs live in a private companion repository and are reached via gitignored symlinks at `content/books/{year}.md` and `exports/{year}.pdf`. Only the public-domain Trakl example is committed here.
+Each yearly volume sets poems by a contemporary German poet; the rights cover only the numbered private printing, not online redistribution. The Markdown sources, PDFs, and frontispiece images live in a private companion repository and are reached via gitignored symlinks at `content/books/{year}.md`, `exports/{year}.pdf`, and `public/frontispiece/{year}.jpg`. Only the public-domain Trakl example is committed here.
 
 ## License
 

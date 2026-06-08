@@ -17,7 +17,17 @@ export default defineContentConfig({
         location: z.string(),
         editor: z.string(),
         sequenceOrdinal: z.string(),
+        printer: z.enum(['druckerei-oberreuter', 'druckhaus-gera']),
         colophonNote: z.string().optional(),
+        frontispiece: z
+          .object({
+            image: z.string(),
+            title: z.string(),
+            artist: z.string(),
+            year: z.number(),
+            credit: z.string(),
+          })
+          .optional(),
       }),
     }),
   },

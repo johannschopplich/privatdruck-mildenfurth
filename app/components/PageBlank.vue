@@ -1,6 +1,6 @@
 <script setup lang="ts">
 defineProps<{
-  kind: 'cover-verso' | 'title-verso'
+  kind: 'cover-verso' | 'title-verso' | 'frontispiece-verso'
 }>()
 </script>
 

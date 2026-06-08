@@ -7,8 +7,9 @@ node_modules
 .DS_Store
 .env
 
-# Yearly volumes hold copyrighted poetry; sources & PDFs live in the
-# private companion repo privatdruck-mildenfurth-content.
+# Yearly volumes hold copyrighted poetry; sources, PDFs & frontispiece
+# images live in the private companion repo privatdruck-mildenfurth-content.
 content/books/*.md
 !content/books/1914.md
 exports/
+public/frontispiece

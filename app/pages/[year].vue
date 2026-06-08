@@ -49,6 +49,11 @@ if (import.meta.server) {
       :roman="roman"
     />
     <PageBlank kind="title-verso" />
+    <PageFrontispiece
+      v-if="book.frontispiece"
+      :frontispiece="book.frontispiece"
+    />
+    <PageBlank v-if="book.frontispiece" kind="frontispiece-verso" />
     <PageBody>
       <ContentRenderer :value="book" />
     </PageBody>
@@ -61,7 +66,15 @@ if (import.meta.server) {
       :location="book.location"
       :author="fullAuthor"
       :author-genitive="authorGenitive"
+      :printer="book.printer"
     >
+      <template v-if="book.frontispiece?.credit" #imageCredit>
+        <MDC
+          :value="book.frontispiece.credit"
+          tag="div"
+          class="space-y-(--colophon-p-gap)"
+        />
+      </template>
       <template v-if="book.colophonNote" #note>
         <MDC
           :value="book.colophonNote"

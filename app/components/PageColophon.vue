@@ -7,10 +7,12 @@ defineProps<{
   location: string
   author: string
   authorGenitive: string
+  printer: 'druckerei-oberreuter' | 'druckhaus-gera'
 }>()
 
-defineSlots<{
-  note: () => any
+const slots = defineSlots<{
+  imageCredit?: () => any
+  note?: () => any
 }>()
 </script>
 
@@ -32,24 +34,35 @@ defineSlots<{
       <p>
         Dieses Exemplar trägt die Nummer:<span
           class="inline-block w-[3.5em]"
-        />/ {{ copies }}.
+        />/ {{ copies }}
       </p>
     </div>
     <div class="mt-auto space-y-(--colophon-p-gap)">
       <p>
         Gestaltung und Satz: Johann Schopplich<br />
         Gesetzt in Sirba sowie Trola<br />
-        Gedruckt in der
-        <img
-          src="/logo-druckerei.svg"
-          alt=""
-          class="ml-[0.275em] inline-block h-[1.4em] w-auto align-middle"
-        />
-        Druckerei Oberreuter, Zeulenroda-Triebes<br />
+        <template v-if="printer === 'druckerei-oberreuter'">
+          Gedruckt in der
+          <img
+            src="/logo-druckerei.svg"
+            alt=""
+            class="ml-[0.275em] inline-block h-[1.4em] w-auto align-middle"
+          />
+          Druckerei Oberreuter, Zeulenroda-Triebes<br />
+        </template>
+        <template v-else-if="printer === 'druckhaus-gera'">
+          Gedruckt im Druckhaus Gera GmbH<br />
+        </template>
         auf Geese Papier ALSTER 150 bläulichweiß der Firma<br />
-        Ernst A. Geese GmbH, Henstedt-Ulzburg.<br />
-        Hergestellt im Eigenverlag.
+        <!-- eslint-disable vue/multiline-html-element-content-newline -->
+        Ernst A. Geese GmbH, Henstedt-Ulzburg.<template
+          v-if="!slots.imageCredit"
+          ><br />Hergestellt im Eigenverlag.</template
+        >
+        <!-- eslint-enable vue/multiline-html-element-content-newline -->
       </p>
+      <slot name="imageCredit" />
+      <p v-if="slots.imageCredit">Hergestellt im Eigenverlag.</p>
       <p>
         Erstausgabe<br />
         © {{ author }}
