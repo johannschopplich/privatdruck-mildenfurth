@@ -115,6 +115,13 @@
   counter-increment: book-folio;
 }
 
+@page blank-page {
+  counter-increment: book-folio;
+  @top-center {
+    content: none;
+  }
+}
+
 @page list {
   counter-increment: book-folio;
 }
@@ -193,6 +200,10 @@
 
 .page-blank-frontispiece-verso {
   page: blank-frontispiece-verso;
+}
+
+.page-blank-content {
+  page: blank-page;
 }
 
 .page-title {
