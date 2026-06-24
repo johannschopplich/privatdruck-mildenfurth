@@ -55,8 +55,11 @@ const slots = defineSlots<{
         </template>
         auf Geese Papier ALSTER 150 bläulichweiß der Firma<br />
         <!-- eslint-disable vue/multiline-html-element-content-newline -->
-        Ernst A. Geese GmbH, Henstedt-Ulzburg.<template
-          v-if="!slots.imageCredit"
+        Ernst A. Geese GmbH, Henstedt-Ulzburg<template
+          v-if="printer === 'druckhaus-gera'"
+          >,<br />gebunden in der Druckerei Rüss, Potsdam.</template
+        ><template v-else>.</template
+        ><template v-if="!slots.imageCredit"
           ><br />Hergestellt im Eigenverlag.</template
         >
         <!-- eslint-enable vue/multiline-html-element-content-newline -->
