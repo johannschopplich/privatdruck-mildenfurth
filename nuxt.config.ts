@@ -33,7 +33,7 @@ export default defineNuxtConfig({
       const entries = await fsp.readdir(booksDir)
       for (const name of entries) {
         if (!/^\d{4}\.md$/.test(name)) continue
-        // Skip dangling symlinks
+        // Skip dangling symlinks.
         try {
           await fsp.access(resolve(booksDir, name))
         } catch {
