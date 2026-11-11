@@ -1,25 +1,19 @@
-# AGENTS.md
+# Privatdruck Mildenfurth
 
-Private-printing series for the Arbeitskreis Kunst und Kultur am Kloster Mildenfurth – one volume per year, Bringhurst-style.
-
-Pipeline: one Markdown file per year under `content/books/{year}.md` → print-ready PDF under `exports/{year}.pdf`. Stack: Nuxt 4 + @nuxt/content + Tailwind v4 + CSS Paged Media.
+Private-printing series for the Arbeitskreis Kunst und Kultur am Kloster Mildenfurth – one volume per year, Bringhurst-style: `content/books/{year}.md` becomes the print-ready `exports/{year}.pdf`.
 
 The yearly volumes contain copyrighted poetry and live in the sibling private repo `../privatdruck-mildenfurth-content/`.
-
-## Layout
-
-- `app/assets/css/print.css` – design tokens, `@page` rules, baseline rhythm, MDC descendant selectors (e.g. `.body-content p`); imported via `layer(base)` so utilities reliably win
-- `app/assets/css/main.css` – Tailwind `@theme` and `@utility` for typography tokens
-- `app/components/` – Vue components with Tailwind utilities (no `<style>` blocks); existing CSS variables directly via arbitrary values (`mt-(--title-author-offset)`)
-- `content/books/{year}.md` – frontmatter + MDC content (`::poem`, `::epigraph`, `::page-break`, `::note`, `::deck`, `:::aside`)
-- `scripts/export.ts` – PDF export via Playwright
 
 ## Commands
 
 ```bash
-pnpm dev              # dev server
-pnpm generate         # static build → .output/public/
-pnpm export [year]    # render PDF (default: latest year)
-pnpm test:types       # vue-tsc typecheck
-pnpm lint             # ESLint
+pnpm generate
+pnpm export [year]    # render the PDF, the latest year by default
+pnpm test:types
+pnpm lint
 ```
+
+## Conventions
+
+- `app/assets/css/print.css` holds the design tokens, the `@page` rules, the baseline rhythm, and the MDC descendant selectors (`.body-content p`); `main.css` imports it into `layer(base)`, so a utility always wins over it.
+- Components are styled with Tailwind utilities alone, no `<style>` block; an existing CSS variable goes in as an arbitrary value (`mt-(--title-author-offset)`).
